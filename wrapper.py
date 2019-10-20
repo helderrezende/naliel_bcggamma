@@ -14,6 +14,22 @@ dict_month = {'Jan' : 1,
               'Nov': 11,
               'Dez': 12}
           
+def read_csv_sim(path):
+    '''
+    Files:
+    
+    Mortalidade Colon e Reto SIM-SUS.csv
+    Mortalidade Linfoma de Hodgkin SIM-SUS.csv
+    Mortalidade Linfoma não Hodgkin SIM-SUS.csv
+    Mortalidade Mama SIM-SUS.csv
+    Mortalidade Prostata SIM-SUS.csv
+    Mortalidade Pulmão SIM-SUS.csv
+    
+    
+    '''
+    data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
+    
+    return data
 
 def read_csv_sia(path):
     '''
@@ -63,7 +79,6 @@ def read_csv_rf(path):
     
     data.columns = [pd.to_datetime('{0}-{1}-01'.format(x[:4], dict_month[x[5:8]])) for x in data.columns]
     
-    
     return data
 
 def read_csv_estabelecimentos(path):
@@ -81,6 +96,3 @@ def read_csv_estabelecimentos(path):
     
     
     return data
-    
-    
-    
