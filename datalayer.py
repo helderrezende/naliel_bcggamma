@@ -60,7 +60,7 @@ def read_csv_rf(path):
     filename = ntpath.basename(path)
     
         
-    if 'Leitos de Internação' is in filename:
+    if 'Leitos de Internação' in filename:
         rowsskip = 3
         
     else:
