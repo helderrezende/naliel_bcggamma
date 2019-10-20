@@ -52,11 +52,11 @@ def read_csv_rf(path):
     filename = ntpath.basename(path)
     
         
-    if 'RF- Mamógrafos' is in filename:
-        rowsskip = 4
+    if 'Leitos de Internação' is in filename:
+        rowsskip = 3
         
     else:
-        rowsskip = 3
+        rowsskip = 4
         
     data = pd.read_csv(path, sep=';', skiprows=4, encoding='latin1')
     data = data.set_index('Município')
