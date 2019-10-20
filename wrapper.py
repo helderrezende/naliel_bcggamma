@@ -28,6 +28,8 @@ def read_csv_sim(path):
     
     '''
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
+    data = data.drop('Unnamed: 0', 1)
+    data = data.dropna(axis=1, how='all') # drop all columns with all values NaN
     
     return data
 
@@ -49,7 +51,8 @@ def read_csv_sia(path):
     
     '''
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
-    
+    data = data.drop('Unnamed: 0', 1)
+    data = data.dropna(axis=1, how='all')
     
     return data
 
