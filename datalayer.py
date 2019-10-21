@@ -1,6 +1,6 @@
 import pandas as pd
 import ntpath
-from utils import drop_columns_with_same_value, get_number_month, get_relevant_columns, tranform_str_to_datetime, tranform_float_to_datetime
+import utils
           
 def read_csv_sim(path):
     '''
@@ -20,18 +20,18 @@ def read_csv_sim(path):
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
     data = data.drop(useless_columns, 1)
     data = data.dropna(axis=1, how='all') # drop all columns with all values NaN
-    data = drop_columns_with_same_value(data)
+    data = utils.drop_columns_with_same_value(data)
     
-    relevant_col = get_relevant_columns(data)
+    relevant_col = utils.get_relevant_columns(data)
     data = data[relevant_col].copy()
     
     
-    data = tranform_float_to_datetime(data,
+    data = utils.tranform_float_to_datetime(data,
                                       ['DTNASC', 'DTCADASTRO',
                                        'DTRECORIGA', 'DTRECEBIM',
                                        'DTATESTADO'])
     
-    data = tranform_str_to_datetime(data, ['DTOBITO'])
+    data = utils.tranform_str_to_datetime(data, ['DTOBITO'])
     
     
     return data
@@ -59,9 +59,9 @@ def read_csv_sia(path):
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
     data = data.drop(useless_columns, 1)
     data = data.dropna(axis=1, how='all') # drop all columns with all values NaN
-    data = drop_columns_with_same_value(data)
+    data = utils.drop_columns_with_same_value(data)
     
-    relevant_col = get_relevant_columns(data)
+    relevant_col = utils.get_relevant_columns(data)
     data = data[relevant_col].copy()
     
     return data
@@ -90,7 +90,7 @@ def read_csv_rf(path):
     data = pd.read_csv(path, sep=';', skiprows=4, encoding='latin1')
     data = data.set_index('Município')
     
-    data.columns = [pd.to_datetime('{0}-{1}-01'.format(x[:4], get_number_month(x[5:8]))) for x in data.columns]
+    data.columns = [pd.to_datetime('{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
     
     return data
 
@@ -106,6 +106,13 @@ def read_csv_estabelecimentos(path):
     '''
        
     data = pd.read_csv(path, sep=';', skiprows=4, encoding='latin1')
+    
+    
+    return data
+
+
+def read_csv_cnes(path):
+    data = pd.read_csv('../data/espelho cnes nome fantasia.csv', sep=';', encoding='latin1')
     
     
     return data
