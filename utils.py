@@ -17,7 +17,6 @@ def drop_columns_with_same_value(data):
     
     return data
 
-
 def get_number_month(month):
     dict_month = {'Jan' : 1,
               'Fev' : 2,
@@ -33,3 +32,20 @@ def get_number_month(month):
               'Dez': 12}
     
     return dict_month[month]
+
+def tranform_str_to_datetime(data, columns):
+    for col in columns:
+        data[col] = data[col].astype(str)
+        data[col] = data[col].str.zfill(8)
+        data[col] = pd.to_datetime(data[col], dayfirst=True, format='%d%m%Y')
+   
+    return data
+
+
+def tranform_float_to_datetime(data, columns):
+    for col in columns:
+        data[col] = data[col].astype(str)
+        data[col] = data[col].str.zfill(10)
+        data[col] = pd.to_datetime(data[col], dayfirst=True, format='%d%m%Y.0', errors='coerce')
+   
+    return data

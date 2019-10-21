@@ -1,6 +1,6 @@
 import pandas as pd
 import ntpath
-from utils import drop_columns_with_same_value, get_number_month, get_relevant_columns
+from utils import drop_columns_with_same_value, get_number_month, get_relevant_columns, tranform_str_to_datetime, tranform_float_to_datetime
           
 def read_csv_sim(path):
     '''
@@ -15,13 +15,22 @@ def read_csv_sim(path):
     
     
     '''
+    useless_columns = ['VERSAOSCB', 'VERSAOSIST', 'Unnamed: 0'] 
+    
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
-    data = data.drop('Unnamed: 0', 1)
+    data = data.drop(useless_columns, 1)
     data = data.dropna(axis=1, how='all') # drop all columns with all values NaN
     data = drop_columns_with_same_value(data)
     
     relevant_col = get_relevant_columns(data)
     data = data[relevant_col].copy()
+    
+    
+    data = tranform_float_to_datetime(data,
+                                      ['DTNASC', 'DTCADASTRO',
+                                       'DTRECORIGA', 'DTRECEBIM', 'DTATESTADO'])
+    data = tranform_str_to_datetime(data, ['DTOBITO'])
+    
     
     return data
 
