@@ -112,7 +112,7 @@ def read_csv_estabelecimentos(path):
 
 
 def read_csv_cnes(path):
-    data = pd.read_csv('../data/espelho cnes nome fantasia.csv', sep=';', encoding='latin1')
+    data = pd.read_csv(path, sep=';', encoding='latin1')
     
     
     return data
