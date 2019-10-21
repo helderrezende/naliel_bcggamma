@@ -1,6 +1,6 @@
 import pandas as pd
 import ntpath
-from utils import drop_columns_with_same_value, get_number_month
+from utils import drop_columns_with_same_value, get_number_month, get_relevant_columns
           
 def read_csv_sim(path):
     '''
@@ -19,6 +19,9 @@ def read_csv_sim(path):
     data = data.drop('Unnamed: 0', 1)
     data = data.dropna(axis=1, how='all') # drop all columns with all values NaN
     data = drop_columns_with_same_value(data)
+    
+    relevant_col = get_relevant_columns(data)
+    data = data[relevant_col].copy()
     
     return data
 

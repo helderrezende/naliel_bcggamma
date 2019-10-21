@@ -1,5 +1,11 @@
 import pandas as pd
 
+def get_relevant_columns(data):
+    count_non_nan = data.notnull().sum()
+    count_non_nan = count_non_nan[count_non_nan > len(data) * 0.1]
+    
+    return count_non_nan.index
+
 def drop_columns_with_same_value(data):
     nunique = data.apply(pd.Series.nunique)
     cols_to_drop = nunique[nunique == 1].index
@@ -21,6 +27,5 @@ def get_number_month(month):
               'Out': 10,
               'Nov': 11,
               'Dez': 12}
-    
     
     return dict_month[month]
