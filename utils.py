@@ -1,6 +1,10 @@
 import pandas as pd
 
 def get_relevant_columns(data):
+    """
+    Get only columns with at least 10% of rows.
+    
+    """
     count_non_nan = data.notnull().sum()
     count_non_nan = count_non_nan[count_non_nan > len(data) * 0.1]
     
