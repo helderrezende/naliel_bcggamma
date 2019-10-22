@@ -16,12 +16,12 @@ def transform_cep_in_feature(data, columns):
     for col in columns:
         data[col] = data[col].astype(str).str.zfill(8)
 
-        data['{0}_REGIAO'.format(col)] = data[col].str[:1]
-        data['{0}_SUBREGIAO'.format(col)] = data[col].str[1:2]
-        data['{0}_SETOR'.format(col)] = data[col].str[2:3]
-        data['{0}_SUBSETOR'.format(col)] = data[col].str[3:4]
-        data['{0}_DIVISOR_SUBSETOR'.format(col)] = data[col].str[3:4]
-        data['{0}_SUFIXO_DISTRIBUICAO'.format(col)] = data[col].str[5:]
+        data['{0}_REGIAO'.format(col)] = data[col].str[:1].astype(int)
+        data['{0}_SUBREGIAO'.format(col)] = data[col].str[1:2].astype(int)
+        data['{0}_SETOR'.format(col)] = data[col].str[2:3].astype(int)
+        data['{0}_SUBSETOR'.format(col)] = data[col].str[3:4].astype(int)
+        data['{0}_DIVISOR_SUBSETOR'.format(col)] = data[col].str[3:4].astype(int)
+        data['{0}_SUFIXO_DISTRIBUICAO'.format(col)] = data[col].str[5:].astype(int)
 
     return data  
 
