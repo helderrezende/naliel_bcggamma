@@ -33,7 +33,7 @@ def get_number_month(month):
     
     return dict_month[month]
 
-def tranform_str_to_datetime(data, columns, format_dt, dayfirst):
+def transform_str_to_datetime(data, columns, format_dt, dayfirst):
     for col in columns:
         data[col] = data[col].astype(str)
         data[col] = data[col].str.zfill(8)
@@ -41,7 +41,7 @@ def tranform_str_to_datetime(data, columns, format_dt, dayfirst):
    
     return data
 
-def tranform_float_to_datetime(data, columns, format_dt, dayfirst):
+def transform_float_to_datetime(data, columns, format_dt, dayfirst):
     for col in columns:
         data[col] = data[col].astype(str)
         data[col] = data[col].str.zfill(10)

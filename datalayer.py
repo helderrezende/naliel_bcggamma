@@ -27,11 +27,11 @@ def read_csv_sim(path):
     data = data[relevant_col].copy()
     
     
-    data = utils.tranform_float_to_datetime(data, ['DTNASC', 'DTCADASTRO',
+    data = utils.transform_float_to_datetime(data, ['DTNASC', 'DTCADASTRO',
                                                    'DTRECORIGA', 'DTRECEBIM',
                                                    'DTATESTADO'], '%d%m%Y.0', True)
     
-    data = utils.tranform_str_to_datetime(data, ['DTOBITO'], '%d%m%Y', True)
+    data = utils.transform_str_to_datetime(data, ['DTOBITO'], '%d%m%Y', True)
     
     
     return data
@@ -77,10 +77,10 @@ def read_csv_sia(path, method):
         columns_str_to_dt = ['AP_DTINIC', 'AP_DTFIM',
                              'AQ_DTINTR', 'AQ_DTIDEN']
         
-    data = utils.tranform_float_to_datetime(data, columns_float_to_dt,
+    data = utils.transform_float_to_datetime(data, columns_float_to_dt,
                                                    '%Y%m%d.0', False)
     
-    data = utils.tranform_str_to_datetime(data, columns_str_to_dt,
+    data = utils.transform_str_to_datetime(data, columns_str_to_dt,
                                                  '%Y%m%d', False)
 
     data = utils.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
