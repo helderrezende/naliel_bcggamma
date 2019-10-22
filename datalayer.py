@@ -2,6 +2,7 @@ import pandas as pd
 import ntpath
 import utils
 import feature_engineering
+import external_data
           
 def read_csv_sim(path):
     '''
@@ -83,7 +84,7 @@ def read_csv_sia(path, method):
     data = utils.transform_str_to_datetime(data, columns_str_to_dt,
                                                  '%Y%m%d', False)
 
-    data = utils.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
+    data = external_data.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
     
     data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
     
