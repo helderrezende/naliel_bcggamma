@@ -1,7 +1,7 @@
 import pandas as pd
 
 def get_municipio_info(data, columns_cod):
-    """Data from https://github.com/kelvins/Municipios-Brasileiros
+    """Source: https://github.com/kelvins/Municipios-Brasileiros
     
     """
     municipio = pd.read_csv('../data/municipios.csv', sep=',')
@@ -19,5 +19,17 @@ def get_municipio_info(data, columns_cod):
         data = data.merge(municipio_col, how='left', on=col) 
 
         data = data.drop('{0}_{1}'.format(col, 'codigo_ibge'), 1)
+    
+    return data
+
+def get_cep_info():
+    """Source: http://cep.la/baixar
+    
+    """
+    data = pd.read_csv('../data/ceps-latin1.txt', encoding='latin1',
+                       sep='\t', names=['CEP', 'Municipio', 'Bairro', 'Complemento'])
+
+    data['CEP'] = data['CEP'].astype(str).str.zfill(8)
+    
     
     return data
