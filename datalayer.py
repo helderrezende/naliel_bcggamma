@@ -130,12 +130,9 @@ def read_csv_estabelecimentos(path):
        
     data = pd.read_csv(path, sep=';', skiprows=4, encoding='latin1')
     
-    
     return data
-
 
 def read_csv_cnes(path):
     data = pd.read_csv(path, sep=';', encoding='latin1')
-    
     
     return data
