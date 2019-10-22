@@ -1,6 +1,7 @@
 import pandas as pd
 import ntpath
 import utils
+import feature_engineering
           
 def read_csv_sim(path):
     '''
@@ -84,7 +85,7 @@ def read_csv_sia(path, method):
 
     data = utils.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
     
-    data = utils.trasnform_cep_in_feature(data, ['AP_CEPPCN'])
+    data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
     
     return data
 
