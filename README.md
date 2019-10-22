@@ -9,3 +9,16 @@ Em uma parceria inédita entre BCG GAMMA, Abrale e Observatório de Oncologia, v
 
 
 https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
+
+
+## External data
+
+* CEP (http://cep.la/baixar):
+  * Bairro, Rua
+
+
+* Municipios:
+
+  * IDH
+  * Latitude
+  * Longitude
