@@ -7,6 +7,7 @@ from datalayer import read_csv_sia
 def predict_sia(path):
     path = '../data/Linfomas Radioterapia SIA-SUS.csv'
     data = read_csv_sia(path, 'radioterapia')
+    data = data.dropna(subset=['AR_ESTADI'])
     
     X = data[['AP_TIPPRE', 'AP_NUIDADE', 'AP_CEPPCN_REGIAO', 'AP_CEPPCN_SUBREGIAO',
               'AP_CEPPCN_SETOR', 'AP_CEPPCN_SUBSETOR', 'AP_CEPPCN_DIVISOR_SUBSETOR',
@@ -30,6 +31,3 @@ def predict_sia(path):
     
 if __name__ == '__main__':
     predict_sia()
-    
-
-
