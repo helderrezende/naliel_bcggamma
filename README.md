@@ -22,3 +22,10 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
   * IDH
   * Latitude
   * Longitude
+
+
+## Team - Naliel
+
+* Helder Rezende
+* Natan Andrade (https://github.com/natandrade)
+* Livia Parente (https://github.com/lvparente)
