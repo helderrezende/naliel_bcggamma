@@ -33,23 +33,21 @@ def get_number_month(month):
     
     return dict_month[month]
 
-def tranform_str_to_datetime(data, columns):
+def tranform_str_to_datetime(data, columns, format_dt, dayfirst):
     for col in columns:
         data[col] = data[col].astype(str)
         data[col] = data[col].str.zfill(8)
-        data[col] = pd.to_datetime(data[col], dayfirst=True, format='%d%m%Y')
+        data[col] = pd.to_datetime(data[col], dayfirst=dayfirst, format=format_dt, errors='coerce')
    
     return data
 
-
-def tranform_float_to_datetime(data, columns):
+def tranform_float_to_datetime(data, columns, format_dt, dayfirst):
     for col in columns:
         data[col] = data[col].astype(str)
         data[col] = data[col].str.zfill(10)
-        data[col] = pd.to_datetime(data[col], dayfirst=True, format='%d%m%Y.0', errors='coerce')
+        data[col] = pd.to_datetime(data[col], dayfirst=dayfirst, format=format_dt, errors='coerce')
    
     return data
-
 
 def get_municipio_info(data, columns_cod):
     municipio = pd.read_csv('../data/municipios.csv', sep=',')
@@ -96,5 +94,4 @@ def trasnform_cep_in_feature(data, columns):
         data['{0}_SUFIXO_DISTRIBUICAO'.format(col)] = data[col].str[5:]
 
 
-    return data
-    
+    return data  
