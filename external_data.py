@@ -1,6 +1,9 @@
 import pandas as pd
 
 def get_municipio_info(data, columns_cod):
+    """Data from https://github.com/kelvins/Municipios-Brasileiros
+    
+    """
     municipio = pd.read_csv('../data/municipios.csv', sep=',')
 
     municipio['codigo_ibge'] = municipio['codigo_ibge'].astype(str)
