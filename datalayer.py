@@ -35,7 +35,7 @@ def read_csv_sim(path):
     
     return data
 
-def read_csv_sia(path):
+def read_csv_sia(path, method):
     '''
     Files:
     
@@ -63,12 +63,23 @@ def read_csv_sia(path):
     relevant_col = utils.get_relevant_columns(data)
     data = data[relevant_col].copy()
     
-    data = utils.tranform_float_to_datetime(data, ['AP_DTSOLIC', 'AP_DTAUT',
-                                                   'AR_INIAR1', 'AR_FIMAR1', 'AP_DTOCOR'],
+    if method == 'radioterapia':
+        columns_float_to_dt = ['AP_DTSOLIC', 'AP_DTAUT',
+                               'AR_INIAR1', 'AR_FIMAR1', 'AP_DTOCOR']
+        
+        columns_str_to_dt = ['AP_DTINIC', 'AR_DTIDEN',
+                             'AR_DTINTR', 'AP_DTFIM']
+        
+    else:
+        columns_float_to_dt = ['AP_DTSOLIC', 'AP_DTAUT']
+        
+        columns_str_to_dt = ['AP_DTINIC', 'AP_DTFIM',
+                             'AQ_DTINTR', 'AQ_DTIDEN']
+        
+    data = utils.tranform_float_to_datetime(data, columns_float_to_dt,
                                                    '%Y%m%d.0', False)
     
-    data = utils.tranform_str_to_datetime(data, ['AP_DTINIC', 'AR_DTIDEN',
-                                                 'AR_DTINTR', 'AP_DTFIM'],
+    data = utils.tranform_str_to_datetime(data, columns_str_to_dt,
                                                  '%Y%m%d', False)
 
     data = utils.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
