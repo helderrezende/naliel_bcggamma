@@ -52,7 +52,7 @@ def tranform_float_to_datetime(data, columns):
 
 
 def get_municipio_info(data, columns_cod):
-    municipio = pd.read_csv('../data/municipios_git.csv', sep=';')
+    municipio = pd.read_csv('../data/municipios.csv', sep=',')
 
     municipio['codigo_ibge'] = municipio['codigo_ibge'].astype(str)
     municipio['codigo_ibge'] = municipio['codigo_ibge'].str[:-1] # numero verificador removed
