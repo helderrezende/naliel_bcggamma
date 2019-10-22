@@ -4,7 +4,6 @@ from sklearn.metrics import accuracy_score
 
 from datalayer import read_csv_sia
 
-
 def predict_sia(path):
     path = '../data/Linfomas Radioterapia SIA-SUS.csv', 'radioterapia'
     data = read_csv_sia(path, 'radioterapia')
