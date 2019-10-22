@@ -49,3 +49,25 @@ def tranform_float_to_datetime(data, columns):
         data[col] = pd.to_datetime(data[col], dayfirst=True, format='%d%m%Y.0', errors='coerce')
    
     return data
+
+
+def get_municipio_info(data, columns_cod):
+    municipio = pd.read_csv('../data/municipios_git.csv', sep=';')
+
+    municipio['codigo_ibge'] = municipio['codigo_ibge'].astype(str)
+    municipio['codigo_ibge'] = municipio['codigo_ibge'].str[:-1]
+    municipio['codigo_ibge'] = pd.to_numeric(municipio['codigo_ibge'])
+
+
+    for col in columns_cod:
+        municipio_col = municipio.copy()
+        municipio_col.columns = ['{0}_{1}'.format(col, x) for x in municipio_col]
+        municipio_col[col] = municipio_col['{0}_{1}'.format(col, 'codigo_ibge')]
+
+        data = data.merge(municipio_col, how='left', on=col) 
+
+        data = data.drop('{0}_{1}'.format(col, 'codigo_ibge'), 1)
+    
+    return data
+    
+    

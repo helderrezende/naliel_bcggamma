@@ -64,6 +64,8 @@ def read_csv_sia(path):
     relevant_col = utils.get_relevant_columns(data)
     data = data[relevant_col].copy()
     
+    data = utils.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
+    
     return data
 
 def read_csv_rf(path):
