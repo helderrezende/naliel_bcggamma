@@ -66,6 +66,8 @@ def read_csv_sia(path):
     
     data = utils.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
     
+    data = utils.trasnform_cep_in_feature(data, ['AP_CEPPCN'])
+    
     return data
 
 def read_csv_rf(path):
