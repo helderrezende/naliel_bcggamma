@@ -1,10 +1,13 @@
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import shap
+import numpy as np
 
 from datalayer import read_csv_sia
 
-def predict_sia(path):
+
+def get_train_and_test_data(path):
     path = '../data/Linfomas Radioterapia SIA-SUS.csv'
     data = read_csv_sia(path, 'radioterapia')
     data = data.dropna(subset=['AR_ESTADI'])
@@ -19,15 +22,41 @@ def predict_sia(path):
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
     
-    xg_reg = xgb.XGBClassifier()
+    d_train = xgb.DMatrix(X_train, label=y_train)
+    d_test = xgb.DMatrix(X_test, label=y_test)
     
-    xg_reg.fit(X_train,y_train)
+    return d_train, d_test
+
+
+def get_relevant_features(model):
+    explainer = shap.TreeExplainer(xg_reg)
+    shap_values = explainer.shap_values(X)
     
-    # make predictions for test data
-    preds = xg_reg.predict(X_test)
+    #shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:])
     
-    accuracy = accuracy_score(y_test, preds)
+    #shap.summary_plot(shap_values, X, plot_type="bar")
+
+def predict_sia(path):
+    d_train, d_test = get_train_and_test_data(path)
+    
+    param = {
+            'max_depth': 3,
+            'eta': 0.3, 
+            'silent': 1, 
+            'objective': 'multi:softprob',
+            'num_class': 5}
+   
+    xg_reg = xgb.train(param, d_train, 100)
+    
+    preds = xg_reg.predict(d_test)
+    best_preds = np.asarray([np.argmax(line) for line in preds])
+
+    accuracy = accuracy_score(y_test, best_preds)
     print("Accuracy: %.2f%%" % (accuracy * 100.0))
+    
+    features = get_relevant_features(xg_reg)
+    
+    return xg_reg
     
 if __name__ == '__main__':
     predict_sia()
