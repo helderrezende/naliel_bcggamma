@@ -114,6 +114,9 @@ def read_csv_rf(path):
 
     data.columns = [pd.to_datetime(
         '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
+    
+    data = data.replace('-', '0')
+    data = data.apply(pd.to_numeric)
 
     return data
 
@@ -137,6 +140,9 @@ def read_csv_estabelecimentos(path):
     
     data.columns = [pd.to_datetime(
                 '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
+    
+    data = data.replace('-', '0')
+    data = data.apply(pd.to_numeric)
 
     return data
 
