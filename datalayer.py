@@ -132,6 +132,11 @@ def read_csv_estabelecimentos(path):
     data['COD_MUNICIPIO'] = data['Município'].str[:6]
     data = data.drop('Município', 1)
     data['COD_MUNICIPIO'] = pd.to_numeric(data['COD_MUNICIPIO'])
+    
+    data = data.set_index('COD_MUNICIPIO')
+    
+    data.columns = [pd.to_datetime(
+                '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
 
     return data
 
