@@ -4,6 +4,30 @@ import utils
 import feature_engineering
 import external_data
 
+def read_csv_estabelecimentos(path):
+    """Files: 
+    Estabelecimentos- Clínicas-Ambulatórios Especializados.csv
+    Estabelecimentos- Hospital Especializado.csv
+    Estabelecimentos- Hospital Geral.csv
+    Estabelecimentos- Unidade Básica de Saúde.csv
+    Estabelecimentos- Unidade de Serviço de Apoio ao Diagnose e Terapia.csv
+
+    """
+    data = pd.read_csv(path, sep=';', skiprows=4, skipfooter=10, encoding='latin1')
+    
+    data['COD_MUNICIPIO'] = data['Município'].str[:6]
+    data = data.drop('Município', 1)
+    data['COD_MUNICIPIO'] = pd.to_numeric(data['COD_MUNICIPIO'])
+    
+    data = data.set_index('COD_MUNICIPIO')
+    
+    data.columns = [pd.to_datetime(
+                '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
+    
+    data = data.replace('-', '0')
+    data = data.apply(pd.to_numeric)
+
+    return data
 
 def read_csv_sim(path):
     """Files:
@@ -34,7 +58,6 @@ def read_csv_sim(path):
     data = utils.transform_str_to_datetime(data, ['DTOBITO'], '%d%m%Y', True)
 
     return data
-
 
 def read_csv_sia(path, method):
     """Files:
@@ -82,11 +105,37 @@ def read_csv_sia(path, method):
     data = utils.transform_str_to_datetime(data, columns_str_to_dt,
                                            '%Y%m%d', False)
 
+    return data
+
+def read_sia_model(path, method):
+    """ DataFrame SIA used to train
+    
+    """
+    
+    estabelecimentos_files = {'Estabelecimentos- Clínicas-Ambulatórios Especializados.csv' : 'CLINICAS_AMB_ESPECIALIZADO',
+                              'Estabelecimentos- Hospital Especializado.csv': 'HOSPITAL_ESPECIALIZADO',
+                              'Estabelecimentos- Hospital Geral.csv': 'HOSPITAL_GERAL',
+                              'Estabelecimentos- Unidade Básica de Saúde.csv': 'UN_BASICA_SAUDE',
+                              'Estabelecimentos- Unidade de Serviço de Apoio ao Diagnose e Terapia.csv': 'UN_DIAG_TERAPIA'}
+    
+    
+    data = read_csv_sia(path, method)
+    
     data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
 
     data = external_data.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
     data = external_data.get_cep_info(data, ['AP_CEPPCN'])
-
+    
+    data = utils.create_year_month_date(data, ['AR_DTIDEN'])
+    
+    for estabelecimento_file in estabelecimentos_files.keys():
+        estabelecimento = read_csv_estabelecimentos('../data/{0}'.format(estabelecimento_file))
+        
+        column_name = estabelecimentos_files[estabelecimento_file]
+        
+        data[column_name] = data.apply(lambda x: utils._get_estabelecimentos(estabelecimento,
+                                                                            x['AP_UFMUN'],
+                                                                            x['AR_DTIDEN_YEAR_MONTH']), 1)
     return data
 
 
@@ -114,32 +163,6 @@ def read_csv_rf(path):
 
     data.columns = [pd.to_datetime(
         '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
-    
-    data = data.replace('-', '0')
-    data = data.apply(pd.to_numeric)
-
-    return data
-
-
-def read_csv_estabelecimentos(path):
-    """Files: 
-    Estabelecimentos- Clínicas-Ambulatórios Especializados.csv
-    Estabelecimentos- Hospital Especializado.csv
-    Estabelecimentos- Hospital Geral.csv
-    Estabelecimentos- Unidade Básica de Saúde.csv
-    Estabelecimentos- Unidade de Serviço de Apoio ao Diagnose e Terapia.csv
-
-    """
-    data = pd.read_csv(path, sep=';', skiprows=4, skipfooter=10, encoding='latin1')
-    
-    data['COD_MUNICIPIO'] = data['Município'].str[:6]
-    data = data.drop('Município', 1)
-    data['COD_MUNICIPIO'] = pd.to_numeric(data['COD_MUNICIPIO'])
-    
-    data = data.set_index('COD_MUNICIPIO')
-    
-    data.columns = [pd.to_datetime(
-                '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
     
     data = data.replace('-', '0')
     data = data.apply(pd.to_numeric)

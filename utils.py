@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def get_relevant_columns(data):
@@ -16,6 +17,13 @@ def drop_columns_with_same_value(data):
     cols_to_drop = nunique[nunique == 1].index
     data = data.drop(cols_to_drop, axis=1)
 
+    return data
+
+
+def create_year_month_date(data, columns):
+    for col in columns:
+        data['{0}_YEAR_MONTH'.format(col)] = data[col].apply(lambda x: '{0}-{1}-01'.format(x.year, str(x.month).zfill(2)))
+    
     return data
 
 
@@ -54,3 +62,13 @@ def transform_float_to_datetime(data, columns, format_dt, dayfirst):
             data[col], dayfirst=dayfirst, format=format_dt, errors='coerce')
 
     return data
+
+
+def _get_estabelecimentos(estabelecimentos, MUN, DATE):
+    try:
+        result = estabelecimentos.loc[MUN, DATE]
+        
+    except:
+        result = np.nan
+        
+    return result
