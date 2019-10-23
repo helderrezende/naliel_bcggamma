@@ -25,11 +25,11 @@ def get_train_and_test_data(path):
     d_train = xgb.DMatrix(X_train, label=y_train)
     d_test = xgb.DMatrix(X_test, label=y_test)
     
-    return d_train, d_test
+    return X, y, d_train, d_test
 
 
-def get_relevant_features(model):
-    explainer = shap.TreeExplainer(xg_reg)
+def get_relevant_features(model, X):
+    explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
     
     #shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:])
@@ -37,7 +37,7 @@ def get_relevant_features(model):
     #shap.summary_plot(shap_values, X, plot_type="bar")
 
 def predict_sia(path):
-    d_train, d_test = get_train_and_test_data(path)
+    X, y, d_train, d_test = get_train_and_test_data(path)
     
     param = {
             'max_depth': 3,
@@ -54,7 +54,7 @@ def predict_sia(path):
     accuracy = accuracy_score(y_test, best_preds)
     print("Accuracy: %.2f%%" % (accuracy * 100.0))
     
-    features = get_relevant_features(xg_reg)
+    features = get_relevant_features(xg_reg, X)
     
     return xg_reg
     
