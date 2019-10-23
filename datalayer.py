@@ -20,8 +20,7 @@ def read_csv_sim(path):
     useless_columns = ['VERSAOSCB', 'VERSAOSIST', 'Unnamed: 0', 'HORAOBITO']
 
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
-    data = data.drop(useless_columns, 1)
-    # drop all columns with all values NaN
+    data = data.drop(useless_columns, 1) # drop all columns with all values NaN
     data = data.dropna(axis=1, how='all')
     data = utils.drop_columns_with_same_value(data)
 
