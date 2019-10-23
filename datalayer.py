@@ -127,8 +127,11 @@ def read_csv_estabelecimentos(path):
     Estabelecimentos- Unidade de Serviço de Apoio ao Diagnose e Terapia.csv
 
     """
-
-    data = pd.read_csv(path, sep=';', skiprows=4, encoding='latin1')
+    data = pd.read_csv(path, sep=';', skiprows=4, skipfooter=10, encoding='latin1')
+    
+    data['COD_MUNICIPIO'] = data['Município'].str[:6]
+    data = data.drop('Município', 1)
+    data['COD_MUNICIPIO'] = pd.to_numeric(data['COD_MUNICIPIO'])
 
     return data
 
