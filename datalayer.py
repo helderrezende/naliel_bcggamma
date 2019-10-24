@@ -180,6 +180,7 @@ def read_sia_model(path, method):
     
     
     data = read_csv_sia(path, method)
+    data = data[data['AR_DTIDEN'] >= pd.to_datetime('2014-01-01')].copy() # filter date: date >= 2014-01-01
     
     data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
 
