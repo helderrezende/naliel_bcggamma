@@ -64,11 +64,12 @@ def transform_float_to_datetime(data, columns, format_dt, dayfirst):
     return data
 
 
-def _get_estabelecimentos(estabelecimentos, MUN, DATE):
+def _get_value_df(data, MUN, DATE):
     try:
-        result = estabelecimentos.loc[MUN, DATE]
+        result = data.loc[MUN, DATE]
         
     except:
         result = np.nan
         
     return result
+    

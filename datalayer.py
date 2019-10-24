@@ -29,6 +29,43 @@ def read_csv_estabelecimentos(path):
 
     return data
 
+def read_csv_rf(path):
+    """Files:
+
+    RF- Leitos de Internação.csv
+    RF- Mamógrafos.csv
+    RF- Raios X.csv
+    RF- Tomógrafos Computadorizados.csv
+    RF-Ressonância Magnética.csv
+
+    """
+
+    filename = ntpath.basename(path)
+
+    if 'Leitos de Internação' in filename:
+        rowsskip = 3
+        footerrows = 13
+
+    else:
+        rowsskip = 4
+        footerrows = 10
+
+    data = pd.read_csv(path, sep=';', skiprows=rowsskip, skipfooter=footerrows, encoding='latin1')
+    
+    data['COD_MUNICIPIO'] = data['Município'].str[:6]
+    data = data.drop('Município', 1)
+    data['COD_MUNICIPIO'] = pd.to_numeric(data['COD_MUNICIPIO'])
+    
+    data = data.set_index('COD_MUNICIPIO')
+
+    data.columns = [pd.to_datetime(
+        '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
+    
+    data = data.replace('-', '0')
+    data = data.apply(pd.to_numeric)
+
+    return data
+
 def read_csv_sim(path):
     """Files:
 
@@ -107,6 +144,23 @@ def read_csv_sia(path, method):
 
     return data
 
+
+def _merge_by_year_and_month(data, ext_data, type_csv):
+    for ext_file in ext_data.keys():
+        if type_csv == 'estabelecimento':
+            ext_df = read_csv_estabelecimentos('../data/{0}'.format(ext_file))
+            
+        elif type_csv == 'rf':
+            ext_df = read_csv_rf('../data/{0}'.format(ext_file))
+        
+        column_name = ext_data[ext_file]
+        
+        data[column_name] = data.apply(lambda x: utils._get_value_df(ext_df,
+                                                                     x['AP_UFMUN'],
+                                                                     x['AR_DTIDEN_YEAR_MONTH']), 1)
+        
+    return data
+
 def read_sia_model(path, method):
     """ DataFrame SIA used to train
     
@@ -118,6 +172,12 @@ def read_sia_model(path, method):
                               'Estabelecimentos- Unidade Básica de Saúde.csv': 'UN_BASICA_SAUDE',
                               'Estabelecimentos- Unidade de Serviço de Apoio ao Diagnose e Terapia.csv': 'UN_DIAG_TERAPIA'}
     
+    rf_files = {'RF- Leitos de Internação.csv':  'LEITOS_INTERNACAO',
+                'RF- Mamógrafos.csv': 'MAMOGRAFOS',
+                'RF- Raios X.csv': 'RAIO_X',
+                'RF- Tomógrafos Computadorizados.csv': 'TOMAGRAFOS',
+                'RF-Ressonância Magnética.csv': 'RESSONANCIA_MAGNETICA'}
+    
     
     data = read_csv_sia(path, method)
     
@@ -128,45 +188,9 @@ def read_sia_model(path, method):
     
     data = utils.create_year_month_date(data, ['AR_DTIDEN'])
     
-    for estabelecimento_file in estabelecimentos_files.keys():
-        estabelecimento = read_csv_estabelecimentos('../data/{0}'.format(estabelecimento_file))
-        
-        column_name = estabelecimentos_files[estabelecimento_file]
-        
-        data[column_name] = data.apply(lambda x: utils._get_estabelecimentos(estabelecimento,
-                                                                            x['AP_UFMUN'],
-                                                                            x['AR_DTIDEN_YEAR_MONTH']), 1)
-    return data
-
-
-def read_csv_rf(path):
-    """Files:
-
-    RF- Leitos de Internação.csv
-    RF- Mamógrafos.csv
-    RF- Raios X.csv
-    RF- Tomógrafos Computadorizados.csv
-    RF-Ressonância Magnética.csv
-
-    """
-
-    filename = ntpath.basename(path)
-
-    if 'Leitos de Internação' in filename:
-        rowsskip = 3
-
-    else:
-        rowsskip = 4
-
-    data = pd.read_csv(path, sep=';', skiprows=4, encoding='latin1')
-    data = data.set_index('Município')
-
-    data.columns = [pd.to_datetime(
-        '{0}-{1}-01'.format(x[:4], utils.get_number_month(x[5:8]))) for x in data.columns]
+    data = _merge_by_year_and_month(data, estabelecimentos_files, 'estabelecimento')
+    data = _merge_by_year_and_month(data, rf_files, 'rf')
     
-    data = data.replace('-', '0')
-    data = data.apply(pd.to_numeric)
-
     return data
 
 
