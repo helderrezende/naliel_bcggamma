@@ -14,9 +14,9 @@ def get_train_and_test_data(path):
     
     X = data[['AP_TIPPRE', 'AP_NUIDADE', 'AP_CEPPCN_REGIAO', 'AP_CEPPCN_SUBREGIAO',
               'AP_CEPPCN_SETOR', 'AP_CEPPCN_SUBSETOR', 'AP_CEPPCN_DIVISOR_SUBSETOR',
-              'AP_CEPPCN_SUFIXO_DISTRIBUICAO', 'AP_MUNPCN_latitude', 'AP_MUNPCN_longitude',
-              'AP_MUNPCN_capital', 'AP_MUNPCN_codigo_uf', 'AP_UFMUN_latitude',
-              'AP_UFMUN_longitude', 'AP_UFMUN_capital', 'AP_UFMUN_codigo_uf']]
+              'AP_CEPPCN_SUFIXO_DISTRIBUICAO', 'AP_MUNPCN_LATITUDE', 'AP_MUNPCN_LONGITUDE',
+              'AP_MUNPCN_CAPITAL', 'AP_MUNPCN_CODIGO_UF', 'AP_UFMUN_LATITUDE',
+              'AP_UFMUN_LONGITUDE', 'AP_UFMUN_CAPITAL', 'AP_UFMUN_CODIGO_UF']]
 
     y = data['AR_ESTADI']
     
