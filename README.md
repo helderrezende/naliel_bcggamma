@@ -1,5 +1,9 @@
 # Datathon
 
+## Entrega
+
+* Envio dos arquivos até 29/10, às 23h59 (Instruções email)
+
 
 ## Intro
 
@@ -18,14 +22,19 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 
 
 * Municipios (https://github.com/kelvins/Municipios-Brasileiros):
-
+  
   * IDH
   * Latitude
   * Longitude
+  
+* Taxa de Crescimento: IBGE, Censo Demográfico 2000-2010.
 
+* Investimento em Saúde: http://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def
+
+* Equipamentos em Uso no SUS: http://cnes2.datasus.gov.br/Mod_Ind_Equipamento.asp?VEstado=35&VMun=&VComp=201202
 
 ## Team - Naliel
 
-* Helder Rezende
+* Helder Rezende (https://github.com/helderrezende)
 * Natan Andrade (https://github.com/natandrade)
 * Livia Parente (https://github.com/lvparente)
