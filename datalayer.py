@@ -188,8 +188,8 @@ def read_sia_model(path, method):
     
     data = utils.create_year_month_date(data, ['AR_DTIDEN'])
     
-    data = _merge_by_year_and_month(data, estabelecimentos_files, 'estabelecimento')
-    data = _merge_by_year_and_month(data, rf_files, 'rf')
+    data = _merge_by_year_and_month(data, ESTABELECIMENTO_FILES, 'estabelecimento')
+    data = _merge_by_year_and_month(data, RF_FILES, 'rf')
     
     return data
 
