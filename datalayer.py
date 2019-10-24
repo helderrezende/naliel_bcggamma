@@ -166,13 +166,13 @@ def read_sia_model(path, method):
     
     """
     
-    estabelecimentos_files = {'Estabelecimentos- Clínicas-Ambulatórios Especializados.csv' : 'CLINICAS_AMB_ESPECIALIZADO',
+    ESTABELECIMENTO_FILES = {'Estabelecimentos- Clínicas-Ambulatórios Especializados.csv' : 'CLINICAS_AMB_ESPECIALIZADO',
                               'Estabelecimentos- Hospital Especializado.csv': 'HOSPITAL_ESPECIALIZADO',
                               'Estabelecimentos- Hospital Geral.csv': 'HOSPITAL_GERAL',
                               'Estabelecimentos- Unidade Básica de Saúde.csv': 'UN_BASICA_SAUDE',
                               'Estabelecimentos- Unidade de Serviço de Apoio ao Diagnose e Terapia.csv': 'UN_DIAG_TERAPIA'}
     
-    rf_files = {'RF- Leitos de Internação.csv':  'LEITOS_INTERNACAO',
+    RF_FILES = {'RF- Leitos de Internação.csv':  'LEITOS_INTERNACAO',
                 'RF- Mamógrafos.csv': 'MAMOGRAFOS',
                 'RF- Raios X.csv': 'RAIO_X',
                 'RF- Tomógrafos Computadorizados.csv': 'TOMAGRAFOS',
