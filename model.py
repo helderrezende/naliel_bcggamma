@@ -7,9 +7,8 @@ import numpy as np
 from datalayer import read_sia_model
 
 
-def get_train_and_test_data(path):
-    path = '../data/Linfomas Radioterapia SIA-SUS.csv'
-    data = read_sia_model(path, 'radioterapia')
+def get_train_and_test_data(path, method):
+    data = read_sia_model(path, method)
     data = data.dropna(subset=['AR_ESTADI'])
     
     X = data[['AP_TIPPRE', 'AP_NUIDADE', 'AP_CEPPCN_REGIAO', 'AP_CEPPCN_SUBREGIAO',
@@ -19,7 +18,13 @@ def get_train_and_test_data(path):
               'AP_UFMUN_LONGITUDE', 'AP_UFMUN_CAPITAL', 'AP_UFMUN_CODIGO_UF',
               'CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO', 'HOSPITAL_GERAL', 
               'UN_BASICA_SAUDE', 'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO', 'MAMOGRAFOS',
-              'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA'
+              'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
+              'AP_MUNPCN_GINI', 'AP_MUNPCN_RDPC', 'AP_MUNPCN_T_AGUA',
+              'AP_MUNPCN_T_BANAGUA', 'AP_MUNPCN_T_LIXO', 'AP_MUNPCN_I_ESCOLARIDADE',
+              'AP_MUNPCN_I_FREQ_PROP', 'AP_MUNPCN_IDHM', 'AP_MUNPCN_IDHM_E', 
+              'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_IDHM_R', 'AP_UFMUN_GINI', 'AP_UFMUN_RDPC',
+              'AP_UFMUN_T_AGUA', 'AP_UFMUN_T_BANAGUA', 'AP_UFMUN_T_LIXO', 'AP_UFMUN_I_ESCOLARIDADE',
+              'AP_UFMUN_I_FREQ_PROP', 'AP_UFMUN_IDHM', 'AP_UFMUN_IDHM_E', 'AP_UFMUN_IDHM_L', 'AP_UFMUN_IDHM_R'
              ]]
 
     y = data['AR_ESTADI']

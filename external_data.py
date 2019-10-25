@@ -1,6 +1,30 @@
 import pandas as pd
 
 
+def get_municipio_info_atlas(data, columns_cod):
+    """Atlas
+    
+    """
+    atlas = pd.read_excel('../data/atlas2013_dadosbrutos_pt.xlsx', sheet_name='MUN 91-00-10')
+    
+    atlas = atlas[atlas['ANO'] == 2010].copy()
+    relevant_columns = ['Codmun6', 'GINI', 'RDPC', 'T_AGUA', 'T_BANAGUA',
+                        'T_LIXO', 'I_ESCOLARIDADE', 'I_FREQ_PROP',
+                        'IDHM', 'IDHM_E', 'IDHM_L', 'IDHM_R']
+
+    atlas = atlas[relevant_columns]
+    
+    for col in columns_cod:
+        atlas_col = atlas.copy()
+        atlas_col.columns = ['{0}_{1}'.format(col, x) for x in atlas_col]
+        atlas_col[col] = atlas_col['{0}_{1}'.format(col, 'Codmun6')]
+
+        data = data.merge(atlas_col, how='left', on=col)
+
+        data = data.drop('{0}_{1}'.format(col, 'Codmun6'), 1)
+
+    return data
+
 def get_orcamento_publico(data, columns_cod):
     """http://siops-asp.datasus.gov.br/CGI/tabcgi.exe?SIOPS/serhist/municipio/mIndicadores.def
     
