@@ -29,11 +29,11 @@ def transform_cep_in_feature(data, columns):
     return data
 
 
-def label_encoder(data, columns):
+def label_encoder(data, encode_columns):
     """
     https://towardsdatascience.com/one-hot-encoding-is-making-your-tree-based-ensembles-worse-heres-why-d64b282b5769
     """
-    for col in columns:
+    for col in encode_columns:
         data[col] = data[col].fillna('NaN')
 
     le = LabelEncoder()
