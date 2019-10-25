@@ -73,7 +73,7 @@ def get_municipio_info(data, columns_cod):
     return data
 
 
-def get_cep_info(data, columns_cep):
+def get_cep_info_public(data, columns_cep):
     """Source: http://cep.la/baixar
 
     """
@@ -92,4 +92,27 @@ def get_cep_info(data, columns_cep):
 
         data = data.drop('{0}_{1}'.format(col, 'CEP'), 1)
 
+    return data
+
+def get_cep_info(data, columns_cep):
+    cep_df = pd.read_csv('../data/tbl_cep_201908_n_log.csv')
+    
+    cep_df.columns = [col.upper() for col in cep_df.columns]
+    
+    relevant_columns = ['CEP', 'TIPO_SEM_ACENTO', 'NOME_LOGRADOURO_SEM_ACENTO',
+                        'LOGRADOURO_SEM_ACENTO', 'LATITUDE', 'LONGITUDE']
+
+    cep_df = cep_df[relevant_columns].copy()
+    
+    cep_df['CEP'] = cep_df['CEP'].astype(str).str.zfill(8)
+    
+    for col in columns_cep:
+        cep_col = cep_df.copy()
+        cep_col.columns = ['{0}_{1}'.format(col, x) for x in cep_col]
+        cep_col[col] = cep_col['{0}_{1}'.format(col, 'CEP')]
+
+        data = data.merge(cep_col, how='left', on=col)
+
+        data = data.drop('{0}_{1}'.format(col, 'CEP'), 1)
+    
     return data
