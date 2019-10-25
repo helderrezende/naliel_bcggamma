@@ -13,30 +13,6 @@ Em uma parceria inédita entre BCG GAMMA, Abrale e Observatório de Oncologia, v
 
 https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 
-## Organização dos Arquivos
-
-* **Pasta Principal:** <br/>
-      * EDA / 
-             * <br/>
-             * <br/>
-             * <br/>
-             * <br/>
-      * data /
-              * <br/>
-              * <br/>
-              * <br/>
-              * <br/>
-      * docs /
-              * <br/>
-              * <br/>
-              * <br/>
-      * .gitignore <br/>
-      * README.MD<br/>
-      * scrapping.ipynb<br/>
-      * datalayer.py<br/>
-      * feature_engineering.py<br/>
-      * modelo.py<br/>
-      * utils.py<br/>
       
 ## External data
 
