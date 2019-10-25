@@ -11,7 +11,7 @@ def get_train_and_test_data(path, method):
     data = read_sia_model(path, method)
     data = data.dropna(subset=['AR_ESTADI'])
     
-    X = data[['AP_TIPPRE', 'AP_NUIDADE', 'AP_CEPPCN_REGIAO', 'AP_CEPPCN_SUBREGIAO',
+    X = data[['AP_TIPPRE', 'AP_NUIDADE', 'AP_RACACOR', 'AP_SEXO', 'AP_CEPPCN_REGIAO', 'AP_CEPPCN_SUBREGIAO',
               'AP_CEPPCN_SETOR', 'AP_CEPPCN_SUBSETOR', 'AP_CEPPCN_DIVISOR_SUBSETOR',
               'AP_CEPPCN_SUFIXO_DISTRIBUICAO', 'AP_MUNPCN_LATITUDE', 'AP_MUNPCN_LONGITUDE',
               'AP_MUNPCN_CAPITAL', 'AP_MUNPCN_CODIGO_UF', 'AP_UFMUN_LATITUDE',

@@ -188,6 +188,7 @@ def read_sia_model(path, method):
     data = data[data['AR_DTIDEN'] >= pd.to_datetime('2014-01-01')].copy() # filter date: date >= 2014-01-01
     
     data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
+    data = feature_engineering.label_encoder(data, ['AP_SEXO'])
 
     data = external_data.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
     data = external_data.get_municipio_info_atlas(data, ['AP_MUNPCN', 'AP_UFMUN'])

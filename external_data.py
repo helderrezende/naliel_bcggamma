@@ -8,7 +8,7 @@ def get_municipio_info_atlas(data, columns_cod):
     atlas = pd.read_excel('../data/atlas2013_dadosbrutos_pt.xlsx', sheet_name='MUN 91-00-10')
     
     atlas = atlas[atlas['ANO'] == 2010].copy()
-    relevant_columns = ['Codmun6', 'GINI', 'RDPC', 'T_AGUA', 'T_BANAGUA',
+    relevant_columns = ['Codmun6', 'GINI', 'RDPC', 'T_AGUA', 'T_BANAGUA', 'AGUA_ESGOTO',
                         'T_LIXO', 'I_ESCOLARIDADE', 'I_FREQ_PROP',
                         'IDHM', 'IDHM_E', 'IDHM_L', 'IDHM_R']
 
