@@ -24,8 +24,8 @@ def get_train_and_test_data(path, method):
               'AP_MUNPCN_I_FREQ_PROP', 'AP_MUNPCN_IDHM', 'AP_MUNPCN_IDHM_E', 
               'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_IDHM_R', 'AP_UFMUN_GINI', 'AP_UFMUN_RDPC',
               'AP_UFMUN_T_AGUA', 'AP_UFMUN_T_BANAGUA', 'AP_UFMUN_T_LIXO', 'AP_UFMUN_I_ESCOLARIDADE',
-              'AP_UFMUN_I_FREQ_PROP', 'AP_UFMUN_IDHM', 'AP_UFMUN_IDHM_E', 'AP_UFMUN_IDHM_L', 'AP_UFMUN_IDHM_R'
-             ]]
+              'AP_UFMUN_I_FREQ_PROP', 'AP_UFMUN_IDHM', 'AP_UFMUN_IDHM_E', 'AP_UFMUN_IDHM_L', 'AP_UFMUN_IDHM_R',
+              'MEDICOS', 'ENFERMEIROS']]
 
     y = data['AR_ESTADI']
     

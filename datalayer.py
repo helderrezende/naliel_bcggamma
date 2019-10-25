@@ -29,7 +29,7 @@ def read_csv_estabelecimentos(path):
 
     return data
 
-def read_csv_rf(path):
+def read_csv_rf_rh(path):
     """Files:
 
     RF- Leitos de Internação.csv
@@ -37,6 +37,8 @@ def read_csv_rf(path):
     RF- Raios X.csv
     RF- Tomógrafos Computadorizados.csv
     RF-Ressonância Magnética.csv
+    RH- Médicos.csv
+    RH- Enfermeiros.csv
 
     """
 
@@ -150,8 +152,8 @@ def _merge_by_year_and_month(data, ext_data, type_csv):
         if type_csv == 'estabelecimento':
             ext_df = read_csv_estabelecimentos('../data/{0}'.format(ext_file))
             
-        elif type_csv == 'rf':
-            ext_df = read_csv_rf('../data/{0}'.format(ext_file))
+        elif type_csv == 'rf_rh':
+            ext_df = read_csv_rf_rh('../data/{0}'.format(ext_file))
         
         column_name = ext_data[ext_file]
         
@@ -172,11 +174,14 @@ def read_sia_model(path, method):
                               'Estabelecimentos- Unidade Básica de Saúde.csv': 'UN_BASICA_SAUDE',
                               'Estabelecimentos- Unidade de Serviço de Apoio ao Diagnose e Terapia.csv': 'UN_DIAG_TERAPIA'}
     
-    RF_FILES = {'RF- Leitos de Internação.csv':  'LEITOS_INTERNACAO',
+    RF_RH_FILES = {'RF- Leitos de Internação.csv':  'LEITOS_INTERNACAO',
                 'RF- Mamógrafos.csv': 'MAMOGRAFOS',
                 'RF- Raios X.csv': 'RAIO_X',
                 'RF- Tomógrafos Computadorizados.csv': 'TOMAGRAFOS',
-                'RF-Ressonância Magnética.csv': 'RESSONANCIA_MAGNETICA'}
+                'RF-Ressonância Magnética.csv': 'RESSONANCIA_MAGNETICA',
+                'RH- Médicos.csv': 'MEDICOS',
+                'RH- Enfermeiros.csv': 'ENFERMEIROS'
+                  }
     
     
     data = read_csv_sia(path, method)
@@ -192,7 +197,7 @@ def read_sia_model(path, method):
     data = utils.create_year_month_date(data, ['AR_DTIDEN'])
     
     data = _merge_by_year_and_month(data, ESTABELECIMENTO_FILES, 'estabelecimento')
-    data = _merge_by_year_and_month(data, RF_FILES, 'rf')
+    data = _merge_by_year_and_month(data, RF_RH_FILES, 'rf_rh')
     
     return data
 
