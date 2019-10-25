@@ -15,28 +15,28 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 
 ## Organização dos Arquivos
 
-* Pasta Principal:
+* **Pasta Principal:** <br/>
       * EDA / 
-             * 
-             *
-             *
-             *
+             * <br/>
+             * <br/>
+             * <br/>
+             * <br/>
       * data /
-              *
-              *
-              *
-              *
+              * <br/>
+              * <br/>
+              * <br/>
+              * <br/>
       * docs /
-              *
-              *
-              *
-      * .gitignore
-      * README.MD
-      * scrapping.ipynb
-      * datalayer.py
-      * feature_engineering.py
-      * modelo.py
-      * utils.py
+              * <br/>
+              * <br/>
+              * <br/>
+      * .gitignore <br/>
+      * README.MD<br/>
+      * scrapping.ipynb<br/>
+      * datalayer.py<br/>
+      * feature_engineering.py<br/>
+      * modelo.py<br/>
+      * utils.py<br/>
       
 ## External data
 
