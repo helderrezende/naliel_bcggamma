@@ -4,19 +4,23 @@ from sklearn.metrics import accuracy_score
 import shap
 import numpy as np
 
-from datalayer import read_csv_sia
+from datalayer import read_sia_model
 
 
 def get_train_and_test_data(path):
     path = '../data/Linfomas Radioterapia SIA-SUS.csv'
-    data = read_csv_sia(path, 'radioterapia')
+    data = read_sia_model(path, 'radioterapia')
     data = data.dropna(subset=['AR_ESTADI'])
     
     X = data[['AP_TIPPRE', 'AP_NUIDADE', 'AP_CEPPCN_REGIAO', 'AP_CEPPCN_SUBREGIAO',
               'AP_CEPPCN_SETOR', 'AP_CEPPCN_SUBSETOR', 'AP_CEPPCN_DIVISOR_SUBSETOR',
               'AP_CEPPCN_SUFIXO_DISTRIBUICAO', 'AP_MUNPCN_LATITUDE', 'AP_MUNPCN_LONGITUDE',
               'AP_MUNPCN_CAPITAL', 'AP_MUNPCN_CODIGO_UF', 'AP_UFMUN_LATITUDE',
-              'AP_UFMUN_LONGITUDE', 'AP_UFMUN_CAPITAL', 'AP_UFMUN_CODIGO_UF']]
+              'AP_UFMUN_LONGITUDE', 'AP_UFMUN_CAPITAL', 'AP_UFMUN_CODIGO_UF',
+              'CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO', 'HOSPITAL_GERAL', 
+              'UN_BASICA_SAUDE', 'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO', 'MAMOGRAFOS',
+              'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA'
+             ]]
 
     y = data['AR_ESTADI']
     
@@ -25,7 +29,7 @@ def get_train_and_test_data(path):
     d_train = xgb.DMatrix(X_train, label=y_train)
     d_test = xgb.DMatrix(X_test, label=y_test)
     
-    return X, y, d_train, d_test
+    return X, y, y_test, d_train, d_test
 
 
 def get_relevant_features(model, X):
@@ -37,7 +41,7 @@ def get_relevant_features(model, X):
     #shap.summary_plot(shap_values, X, plot_type="bar")
 
 def predict_sia(path):
-    X, y, d_train, d_test = get_train_and_test_data(path)
+    X, y, y_test, d_train, d_test = get_train_and_test_data(path)
     
     param = {
             'max_depth': 3,
