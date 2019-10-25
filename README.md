@@ -38,9 +38,9 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 * Equipamentos em Uso no SUS: http://cnes2.datasus.gov.br/Mod_Ind_Equipamento.asp?VEstado=35&VMun=&VComp=201202
 
 * Dados Cep para Endereços Investido: Link
-    * Motivo: - Busca de uma solução mais Robusta e Rápida
-              - Outras Soluções mais onorosas (custo)
-              - py_correios e pygeo (dados incompletos), mas serviu de verificação
+    * Motivo: -- Busca de uma solução mais Robusta e Rápida <br/>
+              -- Outras Soluções mais onorosas (custo) <br/>
+              -- py_correios e pygeo (dados incompletos), mas serviu de verificação
               
 ## Team - Naliel
 
