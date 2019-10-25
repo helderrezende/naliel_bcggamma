@@ -117,8 +117,7 @@ def read_csv_sia(path, method):
     useless_columns = ['Unnamed: 0']
 
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
-    data = data.drop(useless_columns, 1)
-    # drop all columns with all values NaN
+    data = data.drop(useless_columns, 1) # drop all columns with all values NaN
     data = data.dropna(axis=1, how='all')
     data = utils.drop_columns_with_same_value(data)
 
@@ -194,6 +193,7 @@ def read_sia_model(path, method):
     data = external_data.get_municipio_info_atlas(data, ['AP_MUNPCN'])
     
     data = external_data.get_cep_info(data, ['AP_CEPPCN'])
+    data = external_data.get_cnes_loc(data, ['AP_CODUNI'])
     
     data = utils.create_year_month_date(data, ['AR_DTIDEN'])
     
