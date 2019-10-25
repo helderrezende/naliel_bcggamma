@@ -4,7 +4,6 @@
 
 * Envio dos arquivos até 29/10, às 23h59 (Instruções email)
 
-
 ## Intro
 
 20 de Outubro e 09 de Novembro | BCG São Paulo
@@ -16,7 +15,29 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 
 ## Organização dos Arquivos
 
-
+* Pasta Principal:
+      * EDA / 
+             * 
+             *
+             *
+             *
+      * data /
+              *
+              *
+              *
+              *
+      * docs /
+              *
+              *
+              *
+      * .gitignore
+      * README.MD
+      * scrapping.ipynb
+      * datalayer.py
+      * feature_engineering.py
+      * modelo.py
+      * utils.py
+      
 ## External data
 
 * CEP (http://cep.la/baixar):
@@ -38,9 +59,10 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 * Equipamentos em Uso no SUS: http://cnes2.datasus.gov.br/Mod_Ind_Equipamento.asp?VEstado=35&VMun=&VComp=201202
 
 * Dados Cep para Endereços Investido: Link
-    * Motivo: - Busca de uma solução mais Robusta e Rápida <br/>
-                - Outras Soluções mais onorosas (custo) <br/>
-                - py_correios e pygeo (dados incompletos), mas serviu de verificação
+    * **Motivos:** <br/>
+              - Busca de uma solução mais Robusta e Rápida <br/>
+              - Outras Soluções mais onorosas (custo) <br/>
+              - py_correios e pygeo (dados incompletos), mas serviu de verificação
               
 ## Team - Naliel
 
