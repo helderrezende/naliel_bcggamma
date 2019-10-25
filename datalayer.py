@@ -200,6 +200,11 @@ def read_sia_model(path, method):
     data = _merge_by_year_and_month(data, ESTABELECIMENTO_FILES, 'estabelecimento')
     data = _merge_by_year_and_month(data, RF_RH_FILES, 'rf_rh')
     
+    data['DISTANCE_HOSPITAL'] = data.apply(lambda x: utils.calc_distance_lat_long(x['AP_CEPPCN_LATITUDE'],
+                                                                                    x['AP_CEPPCN_LONGITUDE'],
+                                                                                    x['AP_CODUNI_LATITUDE'],
+                                                                                    x['AP_CODUNI_LONGITUDE']), 1)
+    
     return data
 
 
