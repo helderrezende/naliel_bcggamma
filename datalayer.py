@@ -191,7 +191,7 @@ def read_sia_model(path, method):
     data = feature_engineering.label_encoder(data, ['AP_SEXO'])
 
     data = external_data.get_municipio_info(data, ['AP_MUNPCN', 'AP_UFMUN'])
-    data = external_data.get_municipio_info_atlas(data, ['AP_MUNPCN', 'AP_UFMUN'])
+    data = external_data.get_municipio_info_atlas(data, ['AP_MUNPCN'])
     
     data = external_data.get_cep_info(data, ['AP_CEPPCN'])
     
