@@ -63,6 +63,15 @@ def transform_float_to_datetime(data, columns, format_dt, dayfirst):
 
     return data
 
+def transform_int_to_datetime(data, columns, format_dt, dayfirst):
+    for col in columns:
+        data[col] = data[col].astype(str)
+        data[col] = data[col].str.zfill(6)
+        data[col] = pd.to_datetime(
+            data[col], dayfirst=dayfirst, format=format_dt, errors='coerce')
+
+    return data
+
 
 def _get_value_df(data, MUN, DATE):
     try:
