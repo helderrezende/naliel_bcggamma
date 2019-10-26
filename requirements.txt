@@ -6,7 +6,7 @@ appnope=0.1.0=py37_1000
 asn1crypto=1.2.0=py37_0
 backcall=0.1.0=py_0
 beautifulsoup4=4.8.1=py37_0
-ca-certificates=2019.10.16=0
+ca-certificates=2019.9.11=hecc5488_0
 certifi=2019.9.11=py37_0
 cffi=1.13.0=py37hb5b8e2f_0
 chardet=3.0.4=py37_1003
