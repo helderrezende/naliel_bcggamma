@@ -149,10 +149,10 @@ def read_csv_sia(path, method):
 def _merge_by_year_and_month(data, ext_data, type_csv):
     for ext_file in ext_data.keys():
         if type_csv == 'estabelecimento':
-            ext_df = read_csv_estabelecimentos('../data/{0}'.format(ext_file))
+            ext_df = read_csv_estabelecimentos('data/{0}'.format(ext_file))
             
         elif type_csv == 'rf_rh':
-            ext_df = read_csv_rf_rh('../data/{0}'.format(ext_file))
+            ext_df = read_csv_rf_rh('data/{0}'.format(ext_file))
         
         column_name = ext_data[ext_file]
         
@@ -184,6 +184,8 @@ def read_sia_model(path, method):
     
     
     data = read_csv_sia(path, method)
+
+    print (data.head())
     data = data[data['AR_DTIDEN'] >= pd.to_datetime('2014-01-01')].copy() # filter date: date >= 2014-01-01
     
     data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
