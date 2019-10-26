@@ -5,7 +5,7 @@ def get_municipio_info_atlas(data, columns_cod):
     """Atlas
     
     """
-    atlas = pd.read_excel('../data/atlas2013_dadosbrutos_pt.xlsx', sheet_name='MUN 91-00-10')
+    atlas = pd.read_excel('data/atlas2013_dadosbrutos_pt.xlsx', sheet_name='MUN 91-00-10')
     
     atlas = atlas[atlas['ANO'] == 2010].copy()
     relevant_columns = ['Codmun6', 'GINI', 'RDPC', 'T_AGUA', 'T_BANAGUA', 'AGUA_ESGOTO',
@@ -29,7 +29,7 @@ def get_orcamento_publico(data, columns_cod):
     """http://siops-asp.datasus.gov.br/CGI/tabcgi.exe?SIOPS/serhist/municipio/mIndicadores.def
     
     """
-    orcamento = pd.read_csv('../data/Orçamento_Publico_saude_2000-2018.csv', sep=';',
+    orcamento = pd.read_csv('data/Orçamento_Publico_saude_2000-2018.csv', sep=';',
                                         skiprows=3, skipfooter=2, encoding='latin1')
     
     orcamento['COD_MUNICIPIO'] = orcamento['Munic-BR'].str[:6]
@@ -51,7 +51,7 @@ def get_municipio_info(data, columns_cod):
     """Source: https://github.com/kelvins/Municipios-Brasileiros
 
     """
-    municipio = pd.read_csv('../data/municipios.csv', sep=',')
+    municipio = pd.read_csv('data/municipios.csv', sep=',')
     municipio.columns = [x.upper() for x in municipio.columns]
 
     municipio['CODIGO_IBGE'] = municipio['CODIGO_IBGE'].astype(str)
@@ -77,7 +77,7 @@ def get_cep_info_public(data, columns_cep):
     """Source: http://cep.la/baixar
 
     """
-    cep_df = pd.read_csv('../data/ceps-latin1.txt', encoding='latin1',
+    cep_df = pd.read_csv('data/ceps-latin1.txt', encoding='latin1',
                          sep='\t', names=['CEP', 'MUNICIPIO', 'BAIRRO', 'COMPLEMENTO'])
 
     cep_df['CEP'] = cep_df['CEP'].astype(str).str.zfill(8)
@@ -95,7 +95,7 @@ def get_cep_info_public(data, columns_cep):
     return data
 
 def get_cep_info(data, columns_cep):
-    cep_df = pd.read_csv('../data/tbl_cep_201908_n_log.csv')
+    cep_df = pd.read_csv('data/tbl_cep_201908_n_log.csv')
     
     cep_df.columns = [col.upper() for col in cep_df.columns]
     
@@ -121,7 +121,7 @@ def get_cnes_loc(data, columns_cnes):
     """Source: http://dados.gov.br/dataset/cnes
     
     """
-    cnes_loc = pd.read_csv('../data/cnesnone.csv')
+    cnes_loc = pd.read_csv('data/cnesnone.csv')
 
     cnes_loc.columns = [col.upper() for col in cnes_loc.columns]
     cnes_loc = cnes_loc.rename(columns={'LAT': 'LATITUDE', 'LONG': 'LONGITUDE'})

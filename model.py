@@ -42,8 +42,8 @@ def get_relevant_features(model, X):
     
     #shap.summary_plot(shap_values, X, plot_type="bar")
 
-def predict_sia(path):
-    X, y, y_test, d_train, d_test = get_train_and_test_data(path)
+def predict_sia(path, method):
+    X, y, y_test, d_train, d_test = get_train_and_test_data(path, method)
     
     param = {
             'max_depth': 3,
@@ -65,4 +65,5 @@ def predict_sia(path):
     return xg_reg
     
 if __name__ == '__main__':
-    predict_sia()
+    data = predict_sia('data/Linfomas Radioterapia SIA-SUS.csv', method='radioterapia')
+    print ('Done.')
