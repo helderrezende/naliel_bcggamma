@@ -1,7 +1,3 @@
-## Entrega
-
-* Envio dos arquivos até 29/10, às 23h59 (Instruções email)
-
 ## Intro
 
 20 de Outubro e 09 de Novembro | BCG São Paulo
@@ -10,6 +6,11 @@ Em uma parceria inédita entre BCG GAMMA, Abrale e Observatório de Oncologia, v
 
 
 https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
+
+### Entrega
+
+* Envio dos arquivos até 29/10, às 23h59 (Instruções email)
+
 
 
 ## Installation
