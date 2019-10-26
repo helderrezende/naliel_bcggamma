@@ -1,5 +1,3 @@
-# Datathon
-
 ## Entrega
 
 * Envio dos arquivos até 29/10, às 23h59 (Instruções email)
@@ -12,6 +10,19 @@ Em uma parceria inédita entre BCG GAMMA, Abrale e Observatório de Oncologia, v
 
 
 https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
+
+
+## Installation
+
+### Clone
+
+- Clone this repo to your local machine using https://github.com/helderrezende/naliel_bcggamma.git
+
+### Setup
+
+```shell
+$ conda create --name <env> --file requirements.txt
+```
 
       
 ## External data
