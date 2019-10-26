@@ -116,3 +116,23 @@ def get_cep_info(data, columns_cep):
         data = data.drop('{0}_{1}'.format(col, 'CEP'), 1)
     
     return data
+
+def get_cnes_loc(data, columns_cnes):
+    """Source: http://dados.gov.br/dataset/cnes
+    
+    """
+    cnes_loc = pd.read_csv('../data/cnesnone.csv')
+
+    cnes_loc.columns = [col.upper() for col in cnes_loc.columns]
+    cnes_loc = cnes_loc.rename(columns={'LAT': 'LATITUDE', 'LONG': 'LONGITUDE'})
+    cnes_loc = cnes_loc.drop(['CO_IBGE', 'ORIGEM_DADO', 'DATA_ATUALIZACAO'], 1)
+    
+    for col in columns_cnes:
+        cnes_col = cnes_loc.copy()
+        cnes_col.columns = ['{0}_{1}'.format(col, x) for x in cnes_col]
+        cnes_col[col] = cnes_col['{0}_{1}'.format(col, 'CO_CNES')]
+
+        data = data.merge(cnes_col, how='left', on=col)
+        data = data.drop('{0}_{1}'.format(col, 'CO_CNES'), 1)
+    
+    return data

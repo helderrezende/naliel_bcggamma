@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import geopy.distance
 
 def get_relevant_columns(data):
     """Get only columns with at least 10% of rows.
@@ -68,6 +68,17 @@ def _get_value_df(data, MUN, DATE):
     try:
         result = data.loc[MUN, DATE]
         
+    except:
+        result = np.nan
+        
+    return result
+
+def calc_distance_lat_long(LAT1, LONG1, LAT2, LONG2):
+    dist_1 = (LAT1, LONG1)
+    dist_2 = (LAT2, LONG2)
+    
+    try:
+        result = round(geopy.distance.vincenty(dist_1, dist_2).km, 2)
     except:
         result = np.nan
         
