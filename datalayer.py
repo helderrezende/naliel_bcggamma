@@ -117,7 +117,8 @@ def read_csv_sia(path, method):
     useless_columns = ['Unnamed: 0']
 
     data = pd.read_csv(path, error_bad_lines=False, encoding='latin1')
-    data = data.drop(useless_columns, 1) # drop all columns with all values NaN
+    data = data.drop(useless_columns, 1)
+    # drop all columns with all values NaN
     data = data.dropna(axis=1, how='all')
     data = utils.drop_columns_with_same_value(data)
 
@@ -127,6 +128,8 @@ def read_csv_sia(path, method):
     if method == 'radioterapia':
         columns_float_to_dt = ['AP_DTSOLIC', 'AP_DTAUT',
                                'AR_INIAR1', 'AR_FIMAR1', 'AP_DTOCOR']
+        
+        columns_int_to_dt = ['AP_MVM', 'AP_CMP']
 
         columns_str_to_dt = ['AP_DTINIC', 'AR_DTIDEN',
                              'AR_DTINTR', 'AP_DTFIM']
@@ -139,12 +142,13 @@ def read_csv_sia(path, method):
 
     data = utils.transform_float_to_datetime(data, columns_float_to_dt,
                                              '%Y%m%d.0', False)
+    data = utils.transform_int_to_datetime(data, columns_int_to_dt,
+                                             '%Y%m', False)
 
     data = utils.transform_str_to_datetime(data, columns_str_to_dt,
                                            '%Y%m%d', False)
 
     return data
-
 
 def _merge_by_year_and_month(data, ext_data, type_csv):
     for ext_file in ext_data.keys():
@@ -184,6 +188,7 @@ def read_sia_model(path, method):
     
     
     data = read_csv_sia(path, method)
+    data = data[data['AP_TPAPAC']==1] # removes data that are not from the first authorization
     data = data[data['AR_DTIDEN'] >= pd.to_datetime('2014-01-01')].copy() # filter date: date >= 2014-01-01
     
     data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
@@ -193,17 +198,13 @@ def read_sia_model(path, method):
     data = external_data.get_municipio_info_atlas(data, ['AP_MUNPCN'])
     
     data = external_data.get_cep_info(data, ['AP_CEPPCN'])
-    data = external_data.get_cnes_loc(data, ['AP_CODUNI'])
     
     data = utils.create_year_month_date(data, ['AR_DTIDEN'])
     
     data = _merge_by_year_and_month(data, ESTABELECIMENTO_FILES, 'estabelecimento')
     data = _merge_by_year_and_month(data, RF_RH_FILES, 'rf_rh')
     
-    data['DISTANCE_HOSPITAL'] = data.apply(lambda x: utils.calc_distance_lat_long(x['AP_CEPPCN_LATITUDE'],
-                                                                                    x['AP_CEPPCN_LONGITUDE'],
-                                                                                    x['AP_CODUNI_LATITUDE'],
-                                                                                    x['AP_CODUNI_LONGITUDE']), 1)
+    data['id'] = data['AP_CEPPCN'].apply(str) + data['AP_NUIDADE'].apply(str) + data['AP_RACACOR'].apply(str)
     
     return data
 
