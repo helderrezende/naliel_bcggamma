@@ -218,6 +218,14 @@ def read_sia_model(path, method):
                                                                                     x['AP_CODUNI_LATITUDE'],
                                                                                     x['AP_CODUNI_LONGITUDE']), 1)
     
+    
+    data = feature_engineering.get_ratio_columns(data, ['CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO',
+                                                        'HOSPITAL_GERAL',  'UN_BASICA_SAUDE',
+                                                        'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO',
+                                                        'MAMOGRAFOS', 'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
+                                                        'MEDICOS', 'ENFERMEIROS',
+                                                        'DISTANCE_HOSPITAL'], 'AP_MUNPCN_POPULAÇÃO')
+    
     data['id'] = data['AP_CEPPCN'].apply(str) + data['AP_NUIDADE'].apply(str) + data['AP_RACACOR'].apply(str)
     
     return data

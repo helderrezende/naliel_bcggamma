@@ -40,3 +40,9 @@ def label_encoder(data, encode_columns):
     data[encode_columns] = data[encode_columns].apply(le.fit_transform)
 
     return data
+
+def get_ratio_columns(data, columns, numerator):
+    for col in columns:
+        data[col] = data[numerator]/data[col]
+        
+    return data
