@@ -54,7 +54,10 @@ def get_orcamento_publico(data, columns_cod, column_year):
                            ], 1)
     
     orcamento.columns = [x.upper() for x in orcamento.columns]
-    orcamento['COD_MUNICIPIO'] = pd.to_numeric(orcamento['COD_MUNICIPIO'])
+    for col in orcamento.columns:
+        orcamento[col] = orcamento[col].astype(str)
+        orcamento[col] = orcamento[col].str.replace(',', '.')
+        orcamento[col] = orcamento[col].apply(pd.to_numeric, errors='coerce')
     
     for col in columns_cod:
         orcamento_col = orcamento.copy()

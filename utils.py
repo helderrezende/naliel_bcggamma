@@ -29,7 +29,7 @@ def create_year_month_date(data, columns):
 
 def create_year_date(data, columns):
     for col in columns:
-        data['{0}_YEAR'.format(col)] = data[col].apply(lambda x: str(x.year))
+        data['{0}_YEAR'.format(col)] = data[col].apply(lambda x: x.year)
     
     return data
 
