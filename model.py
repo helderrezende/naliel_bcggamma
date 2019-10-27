@@ -14,8 +14,8 @@ def get_train_and_test_data(path, method):
     data = data.dropna(subset=['AR_ESTADI'])
     
     data['AR_ESTADI'] = np.where(data['AR_ESTADI'] <= 3, 0, 1)
-    
-    X_with_cep = data[['AP_CEPPCN', 'AP_TIPPRE',
+    # AP_TIPPRE
+    X_with_cep = data[['AP_CEPPCN',
               'CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO', 'HOSPITAL_GERAL', 
               'UN_BASICA_SAUDE', 'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO', 'MAMOGRAFOS',
               'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
@@ -67,7 +67,7 @@ def predict_sia(path, method):
             'eta': 0.3, 
             'silent': 1, 
             'objective': 'multi:softprob',
-            'num_class': 5}
+            'num_class': 2}
    
     xg_reg = xgb.train(param, d_train, 100)
     
