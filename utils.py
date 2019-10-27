@@ -27,6 +27,13 @@ def create_year_month_date(data, columns):
     return data
 
 
+def create_year_date(data, columns):
+    for col in columns:
+        data['{0}_YEAR'.format(col)] = data[col].apply(lambda x: str(x.year))
+    
+    return data
+
+
 def get_number_month(month):
     dict_month = {'Jan': 1,
                   'Fev': 2,

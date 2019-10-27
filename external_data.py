@@ -27,14 +27,23 @@ def get_municipio_info_atlas(data, columns_cod):
 
     return data
 
-def get_orcamento_publico(data, columns_cod):
+def get_orcamento_publico(data, columns_cod, column_year):
     """http://siops-asp.datasus.gov.br/CGI/tabcgi.exe?SIOPS/serhist/municipio/mIndicadores.def
     
     """
-    orcamento = pd.read_csv('{0}/data/Orçamento_Publico_saude_2000-2018.csv'.format(script_folder), sep=';',
-                                        skiprows=3, skipfooter=2, encoding='latin1')
-    
-    orcamento['COD_MUNICIPIO'] = orcamento['Munic-BR'].str[:6]
+    year_files = ['2014', '2015', '2016', '2017', '2018']
+    orcamento = pd.DataFrame()
+
+    for year in year_files:
+        oracamento_ano = pd.read_csv('../data/orcamento_{0}.csv'.format(year), sep=';',
+                            skiprows=3, skipfooter=2, encoding='latin1')
+
+        oracamento_ano['COD_MUNICIPIO'] = oracamento_ano['Munic-BR'].str[:6]
+
+        oracamento_ano[column_year] = year
+
+        orcamento = pd.concat([oracamento_ano, orcamento])
+
     orcamento = orcamento.drop('Munic-BR', 1)
     orcamento['COD_MUNICIPIO'] = pd.to_numeric(orcamento['COD_MUNICIPIO'])
     
@@ -42,10 +51,12 @@ def get_orcamento_publico(data, columns_cod):
         orcamento_col = orcamento.copy()
         orcamento_col.columns = ['{0}_{1}'.format(col, x) for x in orcamento_col]
         orcamento_col[col] = orcamento_col['{0}_{1}'.format(col, 'COD_MUNICIPIO')]
+        orcamento_col[column_year] = orcamento_col['{0}_{1}'.format(col, column_year)]
 
-        data = data.merge(orcamento_col, how='left', on=col)
+        data = data.merge(orcamento_col, how='left', on=[col, column_year])
 
         data = data.drop('{0}_{1}'.format(col, 'COD_MUNICIPIO'), 1)
+        data = data.drop('{0}_{1}'.format(col, column_year), 1)
     
     return data
 
