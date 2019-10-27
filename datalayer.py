@@ -139,12 +139,15 @@ def read_csv_sia(path, method):
 
     else:
         columns_float_to_dt = ['AP_DTSOLIC', 'AP_DTAUT']
+        
+        columns_int_to_dt = ['AP_MVM', 'AP_CMP']
 
         columns_str_to_dt = ['AP_DTINIC', 'AP_DTFIM',
                              'AQ_DTINTR', 'AQ_DTIDEN']
 
     data = utils.transform_float_to_datetime(data, columns_float_to_dt,
                                              '%Y%m%d.0', False)
+    
     data = utils.transform_int_to_datetime(data, columns_int_to_dt,
                                              '%Y%m', False)
 
@@ -223,8 +226,7 @@ def read_sia_model(path, method):
                                                         'HOSPITAL_GERAL',  'UN_BASICA_SAUDE',
                                                         'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO',
                                                         'MAMOGRAFOS', 'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
-                                                        'MEDICOS', 'ENFERMEIROS',
-                                                        'DISTANCE_HOSPITAL'], 'AP_MUNPCN_POPULAÇÃO')
+                                                        'MEDICOS', 'ENFERMEIROS'], 'AP_MUNPCN_POPULAÇÃO')
     
     data['id'] = data['AP_CEPPCN'].apply(str) + data['AP_NUIDADE'].apply(str) + data['AP_RACACOR'].apply(str)
     
