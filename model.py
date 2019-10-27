@@ -9,6 +9,7 @@ from datalayer import read_sia_model
 
 def get_train_and_test_data(path, method):
     data = read_sia_model(path, method)
+    data['AR_ESTADI'] = data['AR_ESTADI'].apply(pd.to_numeric, errors='coerce')
     data = data.dropna(subset=['AR_ESTADI'])
     data['AR_ESTADI'] = np.where(data['AR_ESTADI'] <= 3, 0, 1)
     
