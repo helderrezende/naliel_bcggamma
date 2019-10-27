@@ -35,7 +35,7 @@ def get_orcamento_publico(data, columns_cod, column_year):
     orcamento = pd.DataFrame()
 
     for year in year_files:
-        oracamento_ano = pd.read_csv('../data/orcamento_{0}.csv'.format(year), sep=';',
+        oracamento_ano = pd.read_csv('{1}/data/orcamento_{0}.csv'.format(year, script_folder), sep=';',
                             skiprows=3, skipfooter=2, encoding='latin1')
 
         oracamento_ano['COD_MUNICIPIO'] = oracamento_ano['Munic-BR'].str[:6]
@@ -43,8 +43,17 @@ def get_orcamento_publico(data, columns_cod, column_year):
         oracamento_ano[column_year] = year
 
         orcamento = pd.concat([oracamento_ano, orcamento])
-
-    orcamento = orcamento.drop('Munic-BR', 1)
+    
+    orcamento = orcamento.drop(['Munic-BR', 'Freqüência', '2.10\tSUBFUNÇÕES_ADMINISTRATIVAS',
+                            '2.20\tSUBFUNÇÕES_VINCULADAS', '2.21\tAtenção_Básica',
+                            '2.22_Assis._Hosp._e_Ambulat.', '2.23_Sup._Profilático_Terap.',
+                            '2.24_Vigilância_Sanitária', '2.25_Vigilância_Epidemiológica',
+                            '2.26_Alimentação_e_Nutrição', '2.30_INFORMAÇÕES_COMPLEMENTARES',
+                            'R.Impostos_e_Transf.Const', 'R.Transf.SUS', 'D.Pessoal', 'D.R.Próprios',
+                            'D.Total_Saúde'
+                           ], 1)
+    
+    orcamento.columns = [x.upper() for x in orcamento.columns]
     orcamento['COD_MUNICIPIO'] = pd.to_numeric(orcamento['COD_MUNICIPIO'])
     
     for col in columns_cod:

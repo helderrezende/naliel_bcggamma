@@ -22,7 +22,22 @@ def get_train_and_test_data(path, method):
               'AP_MUNPCN_GINI', 'AP_MUNPCN_RDPC', 'AP_MUNPCN_T_AGUA',
               'AP_MUNPCN_T_BANAGUA', 'AP_MUNPCN_T_LIXO', 'AP_MUNPCN_I_ESCOLARIDADE',
               'AP_MUNPCN_I_FREQ_PROP', 'AP_MUNPCN_IDHM', 'AP_MUNPCN_IDHM_E', 
-              'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_IDHM_R', 'MEDICOS', 'ENFERMEIROS', 'DISTANCE_HOSPITAL']]
+              'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_IDHM_R', 'MEDICOS', 'ENFERMEIROS', 'DISTANCE_HOSPITAL',
+               'AP_MUNPCN_1.1_%R.LÍQUIDA_TOTAL',
+              'AP_MUNPCN_1.2_%TRANSF._INTERGOV._LÍQUIDAS',
+              'AP_MUNPCN_1.3_%TRANSF._PARA_A_SAÚDE_(SUS)', 'AP_MUNPCN_1.4_%TRANSF._UNIÃO_P/_SAÚDE',
+              'AP_MUNPCN_1.5_%TRANSF._DA_UNIÃO_P/_(SUS)',
+              'AP_MUNPCN_1.6_%R.IMP._TRANSF.CONST.LEGAIS',
+              'AP_MUNPCN_2.1_D.TOTAL_SAÚDE/HAB', 
+              'AP_MUNPCN_2.2_%D.PESSOAL/D.TOTAL',
+              'AP_MUNPCN_2.3_%D.COM_MEDICAMENTOS',
+              'AP_MUNPCN_2.4_%D.SERV.TERC/D.TOTAL',
+              'AP_MUNPCN_2.5_%D.INVEST/D.TOTAL',
+              'AP_MUNPCN_3.1_%TRANSF.SUS/D.TOTAL', 
+              'AP_MUNPCN_3.2_%R.PRÓPRIOS_EM_SAÚDE-EC_29', 
+              'AP_MUNPCN_R.TRANSF.SUS/HAB', 
+              'AP_MUNPCN_D.R.PRÓPRIOS_EM_SAÚDE/HAB'
+             ]]
 
     y = data['AR_ESTADI']
     
