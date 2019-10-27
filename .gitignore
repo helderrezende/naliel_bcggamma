@@ -103,5 +103,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-data/*.csv
+naliel/data/*.csv
+naliel/data/*.txt
+naliel/data/*.xlsx
 .DS_Store
