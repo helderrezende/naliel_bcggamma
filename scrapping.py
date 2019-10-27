@@ -77,7 +77,6 @@ def scrapping():
     for option in options_state:
         states.append({'name': option.text, 'id': option['value']})
     del states[:2]
-    del states[-2:]
 
     for state in states:
         idEstado = state['id']
