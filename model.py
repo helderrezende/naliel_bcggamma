@@ -12,7 +12,7 @@ def get_train_and_test_data(path, method):
     data = data.dropna(subset=['AR_ESTADI'])
     data['AR_ESTADI'] = np.where(data['AR_ESTADI'] <= 3, 0, 1)
     
-    X = data[['AP_TIPPRE',
+    X_with_cep = data[['AP_CEPPCN', 'AP_TIPPRE',
               'CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO', 'HOSPITAL_GERAL', 
               'UN_BASICA_SAUDE', 'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO', 'MAMOGRAFOS',
               'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
@@ -35,6 +35,8 @@ def get_train_and_test_data(path, method):
               'AP_MUNPCN_R.TRANSF.SUS/HAB', 
               'AP_MUNPCN_D.R.PRÓPRIOS_EM_SAÚDE/HAB'
              ]]
+    
+    X = X_with_cep.drop('AP_CEPPCN', 1)
 
     y = data['AR_ESTADI']
     
@@ -43,7 +45,7 @@ def get_train_and_test_data(path, method):
     d_train = xgb.DMatrix(X_train, label=y_train)
     d_test = xgb.DMatrix(X_test, label=y_test)
     
-    return X, y, y_test, d_train, d_test
+    return X, X_with_cep, y, y_test, d_train, d_test
 
 
 def get_relevant_features(model, X):
@@ -55,7 +57,7 @@ def get_relevant_features(model, X):
     #shap.summary_plot(shap_values, X, plot_type="bar")
 
 def predict_sia(path, method):
-    X, y, y_test, d_train, d_test = get_train_and_test_data(path, method)
+    X, X_with_cep, y, y_test, d_train, d_test = get_train_and_test_data(path, method)
     
     param = {
             'max_depth': 3,
@@ -72,9 +74,7 @@ def predict_sia(path, method):
     accuracy = accuracy_score(y_test, best_preds)
     print("Accuracy: %.2f%%" % (accuracy * 100.0))
     
-    features = get_relevant_features(xg_reg, X)
-    
-    return xg_reg
+    return xg_reg, X, X_with_cep
     
 if __name__ == '__main__':
     data = predict_sia('data/Linfomas Radioterapia SIA-SUS.csv', method='radioterapia')
