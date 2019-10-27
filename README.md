@@ -22,8 +22,9 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 ### Setup
 
 ```shell
-$ conda config --add channels conda-forge
-$ conda create --name <env> --file requirements.txt
+$ conda create --name <env> python=3 pip
+
+$ pip install -r requirements.txt
 ```
 
       
