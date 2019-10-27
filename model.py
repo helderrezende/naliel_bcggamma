@@ -10,12 +10,9 @@ from datalayer import read_sia_model
 def get_train_and_test_data(path, method):
     data = read_sia_model(path, method)
     data = data.dropna(subset=['AR_ESTADI'])
+    data['AR_ESTADI'] = np.where(data['AR_ESTADI'] <= 3, 0, 1)
     
-    X = data[['AP_TIPPRE', 'AP_NUIDADE', 'AP_RACACOR', 'AP_SEXO', 'AP_CEPPCN_REGIAO', 'AP_CEPPCN_SUBREGIAO',
-              'AP_CEPPCN_SETOR', 'AP_CEPPCN_SUBSETOR', 'AP_CEPPCN_DIVISOR_SUBSETOR',
-              'AP_CEPPCN_SUFIXO_DISTRIBUICAO', 'AP_MUNPCN_LATITUDE', 'AP_MUNPCN_LONGITUDE',
-              'AP_MUNPCN_CAPITAL', 'AP_MUNPCN_CODIGO_UF', 'AP_UFMUN_LATITUDE',
-              'AP_UFMUN_LONGITUDE', 'AP_UFMUN_CAPITAL', 'AP_UFMUN_CODIGO_UF',
+    X = data[['AP_TIPPRE',
               'CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO', 'HOSPITAL_GERAL', 
               'UN_BASICA_SAUDE', 'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO', 'MAMOGRAFOS',
               'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
@@ -23,7 +20,7 @@ def get_train_and_test_data(path, method):
               'AP_MUNPCN_T_BANAGUA', 'AP_MUNPCN_T_LIXO', 'AP_MUNPCN_I_ESCOLARIDADE',
               'AP_MUNPCN_I_FREQ_PROP', 'AP_MUNPCN_IDHM', 'AP_MUNPCN_IDHM_E', 
               'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_IDHM_R', 'MEDICOS', 'ENFERMEIROS', 'DISTANCE_HOSPITAL',
-               'AP_MUNPCN_1.1_%R.LÍQUIDA_TOTAL',
+              'AP_MUNPCN_1.1_%R.LÍQUIDA_TOTAL',
               'AP_MUNPCN_1.2_%TRANSF._INTERGOV._LÍQUIDAS',
               'AP_MUNPCN_1.3_%TRANSF._PARA_A_SAÚDE_(SUS)', 'AP_MUNPCN_1.4_%TRANSF._UNIÃO_P/_SAÚDE',
               'AP_MUNPCN_1.5_%TRANSF._DA_UNIÃO_P/_(SUS)',
