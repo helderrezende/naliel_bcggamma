@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+import numpy as np
 
 
 def transform_cep_in_feature(data, columns):
