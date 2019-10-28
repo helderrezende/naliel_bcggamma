@@ -230,7 +230,7 @@ def read_sia_model(path, method):
                                                         'MAMOGRAFOS', 'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
                                                         'MEDICOS', 'ENFERMEIROS'], 'AP_MUNPCN_POPULAÇÃO')
     
-    data['id'] = data['AP_CEPPCN'].apply(str) + data['AP_NUIDADE'].apply(str) + data['AP_RACACOR'].apply(str)
+    data = feature_engineering.creates_new_features_sia(data)
     
     return data
 

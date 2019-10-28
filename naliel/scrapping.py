@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 def get_soup_obj(url):
     try:
-        request = requests.get(url)
+        request = requests.get(url,verify=False, timeout=5)
         soup = BeautifulSoup(request.text, 'html.parser')
     except:
         soup = None
