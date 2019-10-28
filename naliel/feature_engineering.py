@@ -46,3 +46,17 @@ def get_ratio_columns(data, columns, numerator):
         data[col] = data[numerator]/data[col]
         
     return data
+
+def creates_new_features_sia(data):
+    
+    data['id'] = data['AP_CEPPCN'].apply(str) + data['AP_NUIDADE'].apply(str) + data['AP_RACACOR'].apply(str)
+    
+    data['AP_DTSOLIC-AUT'] = data['AP_DTSOLIC'] - data['AP_DTAUT']
+    
+    data['AP_OCOR_POS_MVM'] = data['AP_DTOCOR'] - data['AP_MVM']    
+    data['AP_OCOR_POS_MVM'] = np.where(data['AP_OCOR_POS_MVM'] <= timedelta(days=0), 0, 1)
+    
+    data['AP_OCOR_VAL'] = data['AP_DTOCOR']
+    data['AP_OCOR_VAL'] = np.where(data['AP_OCOR_VAL'] <= data['AP_DTFIM'], 1, 0)
+    
+    return data
