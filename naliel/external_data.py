@@ -165,7 +165,7 @@ def get_cnes_loc(data, columns_cnes):
 
 def get_review_google_cnes(data, columns):
     review = pd.read_csv('{0}/data/reviews.csv'.format(script_folder), sep=';')
-    review['Nota'] = review['Nota'].apply(pd.to_numeric, errors='coerca')
+    review['Nota'] = review['Nota'].apply(pd.to_numeric, errors='coerce')
     review.columns = [col.upper() for col in review.columns]
     
     for col in columns:
