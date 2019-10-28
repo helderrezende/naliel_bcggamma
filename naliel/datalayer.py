@@ -195,10 +195,11 @@ def read_sia_model(path, method):
     
     data = read_csv_sia(path, method)
 
-    data = data[data['AP_TPAPAC']==1] # removes data that are not from the first authorization
+    data = data[data['AP_TPAPAC'] == 1] # removes data that are not from the first authorization
 
     data = data[data['AR_DTIDEN'] >= pd.to_datetime('2014-01-01')].copy() # filter date: date >= 2014-01-01
     
+    data = feature_engineering.get_delay_tratamento(data)
     data = feature_engineering.transform_cep_in_feature(data, ['AP_CEPPCN'])
     data = feature_engineering.label_encoder(data, ['AP_SEXO'])
 

@@ -49,6 +49,30 @@ def get_ratio_columns(data, columns, numerator):
         
     return data
 
+def get_delay_tratamento(data):
+    delay = data[['AP_DTINIC', 'AR_DTIDEN', 'AP_CODUNI']].copy()
+    delay['DELAY'] = (delay['AP_DTINIC'] - delay['AR_DTIDEN']).dt.days
+    delay['DELAY'] = np.where(delay['DELAY'] < 0, np.nan, delay['DELAY'])
+    
+    delay = delay.sort_values('AR_DTIDEN')
+    
+    delay['EWM_MEAN_DELAY'] = delay.groupby(['AP_CODUNI'])['DELAY'].apply(lambda x: x.ewm(span=60, ignore_na=True).mean())
+    delay['EWM_MEAN_DELAY'] = np.where(delay['DELAY'].isnull(), np.nan, delay['EWM_MEAN_DELAY'])
+    
+    delay['YEAR'] = delay['AR_DTIDEN'].dt.year
+    delay['MONTH'] = delay['AR_DTIDEN'].dt.month
+    
+    delay = delay.groupby(['AP_CODUNI', 'YEAR', 'MONTH'], as_index=False)['EWM_MEAN_DELAY'].mean()
+    
+    data['YEAR'] = data['AR_DTIDEN'].dt.year
+    data['MONTH'] = data['AR_DTIDEN'].dt.month
+    
+    data = data.merge(delay, on=['AP_CODUNI', 'YEAR', 'MONTH'], how='left')
+    
+    data = data.drop(['YEAR', 'MONTH'], 1)
+
+    return data
+
 def creates_new_features_sia(data):
     
     data['id'] = data['AP_CEPPCN'].apply(str) + data['AP_NUIDADE'].apply(str) + data['AP_RACACOR'].apply(str)
