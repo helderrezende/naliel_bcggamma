@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
+from datetime import timedelta
 
 
 def transform_cep_in_feature(data, columns):
