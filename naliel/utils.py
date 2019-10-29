@@ -79,16 +79,6 @@ def transform_int_to_datetime(data, columns, format_dt, dayfirst):
 
     return data
 
-
-def _get_value_df(data, MUN, DATE):
-    try:
-        result = data.loc[MUN, DATE]
-        
-    except:
-        result = np.nan
-        
-    return result
-
 def calc_distance_lat_long(LAT1, LONG1, LAT2, LONG2):
     dist_1 = (LAT1, LONG1)
     dist_2 = (LAT2, LONG2)
