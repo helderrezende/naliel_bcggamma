@@ -53,30 +53,23 @@ $ pip install -r requirements.txt
       
 ## External data
 
-* CEP (http://cep.la/baixar):
-  * Bairro, Rua
+* CEP - tbl_cep_201908_n_log - (base paga):
+  * Latitude
+  * Longitude
 
-
-* Municipios (https://github.com/kelvins/Municipios-Brasileiros):
-  
-  * IDH
+* Municípios - municipios.csv (https://github.com/kelvins/Municipios-Brasileiros):
   * Latitude
   * Longitude
   
-* Taxa de Crescimento: IBGE, Censo Demográfico 2000-2010.
+* Município Dados Economicos - atlas2013_dadosbrutos_pt.csv (http://www.atlasbrasil.org.br/2013/)
+  
+* Dados de Cnes - cnesnone.csv - (http://dados.gov.br/dataset/cnes)
+   * Latitude
+   * Longitude
 
-* Dados de Cnes (Lat/Lon): http://dados.gov.br/dataset/cnes
+* Investimento em Saúde - orcamento.csv(ttp://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def)
 
-* Investimento em Saúde: http://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def
 
-* Equipamentos em Uso no SUS: http://cnes2.datasus.gov.br/Mod_Ind_Equipamento.asp?VEstado=35&VMun=&VComp=201202
-
-* Dados Cep para Endereços Investido: Link
-    * **Motivos:** <br/>
-              - Busca de uma solução mais Robusta e Rápida <br/>
-              - Outras Soluções mais onorosas (custo) <br/>
-              - py_correios e pygeo (dados incompletos), mas serviu de verificação
-              
 ## Team - Naliel
 
 * Helder Rezende (https://github.com/helderrezende)
