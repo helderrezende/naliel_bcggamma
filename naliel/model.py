@@ -1,6 +1,6 @@
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import roc_curve, auc, roc_auc_score
 import shap
 import numpy as np
 import pandas as pd
@@ -71,19 +71,20 @@ def predict_sia(path, method):
             'eta': 0.3, 
             'silent': 1, 
             'objective': 'multi:softprob',
-            'num_class': 2}
+            'num_class': 2,
+            'scale_pos_weight':1}
     
     print ('training model...')
    
     xg_reg = xgb.train(param, d_train, 100)
     
-    preds = xg_reg.predict(d_test)
-    best_preds = np.asarray([np.argmax(line) for line in preds])
+    prob_preds = xg_reg.predict(d_test)
+    best_preds = np.asarray([np.argmax(line) for line in prob_preds])
 
-    accuracy = accuracy_score(y_test, best_preds)
-    print("Accuracy: %.2f%%" % (accuracy * 100.0))
+    accuracy = roc_auc_score(y_test, best_preds)
+    print("ROC_AUC_SCORE: %.2f%%" % (accuracy * 100.0))
     
-    return xg_reg, X, X_with_cep
+    return xg_reg, X, X_with_cep, y_test, prob_preds, best_preds
     
 if __name__ == '__main__':
     data = predict_sia('data/Linfomas Radioterapia SIA-SUS.csv', method='radioterapia')
