@@ -7,11 +7,6 @@ Em uma parceria inédita entre BCG GAMMA, Abrale e Observatório de Oncologia, v
 
 https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 
-### Entrega
-
-* Envio dos arquivos até 29/10, às 23h59 (Instruções email)
-
-
 
 ## Installation
 
@@ -26,7 +21,7 @@ $ git clone https://github.com/helderrezende/naliel_bcggamma.git
 ```shell
 $ cd naliel/
 $ cd data/
-$ gdown https://drive.google.com/uc?id=1Ud4EbW-ccuhjf0ACaCV5eU3CkVDtj4UC
+$ gdown https://drive.google.com/uc?id=1uAcH2CPEgYVQyWLL5IX9GpLrfkmGeVQM
 $ unzip external_data.zip
 ```
 
@@ -50,33 +45,35 @@ $ conda activate <env>
 $ conda install -c conda-forge implicit
 $ pip install -r requirements.txt
 ```
+
+## Documentation
+
+* Features - **Preprocessamento-SIA.ipynb**
+
+* Modelo - **Modelo-Linfoma.ipynb**
+
       
 ## External data
 
-* CEP (http://cep.la/baixar):
-  * Bairro, Rua
+* CEP - **tbl_cep_201908_n_log.csv** - (base paga):
+  * Latitude
+  * Longitude
 
-
-* Municipios (https://github.com/kelvins/Municipios-Brasileiros):
-  
-  * IDH
+* Municípios - **municipios.csv** (https://github.com/kelvins/Municipios-Brasileiros):
   * Latitude
   * Longitude
   
-* Taxa de Crescimento: IBGE, Censo Demográfico 2000-2010.
+* Município Dados Economicos - **atlas2013_dadosbrutos_pt.csv** (http://www.atlasbrasil.org.br/2013/)
+  
+* Dados de Cnes - **cnesnone.csv** - (http://dados.gov.br/dataset/cnes)
+   * Latitude
+   * Longitude
 
-* Dados de Cnes (Lat/Lon): http://dados.gov.br/dataset/cnes
+* Investimento em Saúde - **orcamento.csv**(http://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def)
 
-* Investimento em Saúde: http://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def
+* Review hospital (Google Maps) - **reviews.csv** - feito manualmente
 
-* Equipamentos em Uso no SUS: http://cnes2.datasus.gov.br/Mod_Ind_Equipamento.asp?VEstado=35&VMun=&VComp=201202
 
-* Dados Cep para Endereços Investido: Link
-    * **Motivos:** <br/>
-              - Busca de uma solução mais Robusta e Rápida <br/>
-              - Outras Soluções mais onorosas (custo) <br/>
-              - py_correios e pygeo (dados incompletos), mas serviu de verificação
-              
 ## Team - Naliel
 
 * Helder Rezende (https://github.com/helderrezende)
