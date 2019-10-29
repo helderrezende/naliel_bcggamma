@@ -138,12 +138,14 @@ def read_csv_sia(path, method):
                              'AR_DTINTR', 'AP_DTFIM']
 
     else:
+        data = data.rename(columns={'AQ_DTIDEN': 'AR_DTIDEN', 'AQ_ESTADI':'AR_ESTADI'})
+        
         columns_float_to_dt = ['AP_DTSOLIC', 'AP_DTAUT']
         
         columns_int_to_dt = ['AP_MVM', 'AP_CMP']
 
         columns_str_to_dt = ['AP_DTINIC', 'AP_DTFIM',
-                             'AQ_DTINTR', 'AQ_DTIDEN']
+                             'AQ_DTINTR', 'AR_DTIDEN']
 
     data = utils.transform_float_to_datetime(data, columns_float_to_dt,
                                              '%Y%m%d.0', False)
@@ -192,9 +194,10 @@ def read_sia_model(path, method):
                 'RH- Enfermeiros.csv': 'ENFERMEIROS'
                   }
     
-    
+    print ('Reading csv...')
     data = read_csv_sia(path, method)
-
+    
+    print ('Transforming csv to train...')
     data = data[data['AP_TPAPAC'] == 1] # removes data that are not from the first authorization
 
     data = data[data['AR_DTIDEN'] >= pd.to_datetime('2014-01-01')].copy() # filter date: date >= 2014-01-01
@@ -231,7 +234,7 @@ def read_sia_model(path, method):
                                                         'MAMOGRAFOS', 'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
                                                         'MEDICOS', 'ENFERMEIROS'], 'AP_MUNPCN_POPULAÇÃO')
     
-    data = feature_engineering.creates_new_features_sia(data)
+    #data = feature_engineering.creates_new_features_sia(data)
     
     return data
 

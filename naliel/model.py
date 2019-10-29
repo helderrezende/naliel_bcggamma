@@ -72,6 +72,8 @@ def predict_sia(path, method):
             'silent': 1, 
             'objective': 'multi:softprob',
             'num_class': 2}
+    
+    print ('training model...')
    
     xg_reg = xgb.train(param, d_train, 100)
     
