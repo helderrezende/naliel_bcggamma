@@ -13,7 +13,7 @@ def get_train_and_test_data(data):
     data['AR_ESTADI'] = np.where(data['AR_ESTADI'] <= 2, 0, 1)
     
     
-    X_with_cep = data[['AP_CEPPCN', 'AP_MUNPCN_CODIGO_UF',
+    X_with_cep = data[['AP_CEPPCN', 'AP_MUNPCN_CODIGO_UF', 'AP_MUNPCN_NOME',
               'CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO', 'HOSPITAL_GERAL', 
               'UN_BASICA_SAUDE', 'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO', 'MAMOGRAFOS',
               'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
@@ -41,7 +41,7 @@ def get_train_and_test_data(data):
               'AP_MUNPCN_D.R.PRÓPRIOS_EM_SAÚDE/HAB'
              ]]
     
-    X = X_with_cep.drop(['AP_CEPPCN', 'AP_MUNPCN_CODIGO_UF'], 1)
+    X = X_with_cep.drop(['AP_CEPPCN', 'AP_MUNPCN_CODIGO_UF', 'AP_MUNPCN_NOME'], 1)
 
     y = data['AR_ESTADI']
     
