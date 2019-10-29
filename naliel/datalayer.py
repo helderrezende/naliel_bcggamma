@@ -223,7 +223,7 @@ def read_sia_model(path, method):
     data = external_data.get_cep_info(data, ['AP_CEPPCN'])
     data = external_data.get_cnes_loc(data, ['AP_CODUNI']) 
     
-    data = external_data.get_review_google_cnes(data, ['AP_CODUNI'])
+    #data = external_data.get_review_google_cnes(data, ['AP_CODUNI'])
     
     data = utils.create_year_month_date(data, ['AR_DTIDEN'])
     data = utils.create_year_date(data, ['AR_DTIDEN'])

@@ -4,17 +4,15 @@ from sklearn.metrics import roc_curve, auc, roc_auc_score
 import shap
 import numpy as np
 import pandas as pd
-
 from datalayer import read_sia_model
 
-
-def get_train_and_test_data(path, method):
-    data = read_sia_model(path, method)
+def get_train_and_test_data(data):
     data['AR_ESTADI'] = data['AR_ESTADI'].apply(pd.to_numeric, errors='coerce')
     data = data.dropna(subset=['AR_ESTADI'])
     
     data['AR_ESTADI'] = np.where(data['AR_ESTADI'] <= 2, 0, 1)
-    # AP_TIPPRE
+    
+    
     X_with_cep = data[['AP_CEPPCN',
               'CLINICAS_AMB_ESPECIALIZADO', 'HOSPITAL_ESPECIALIZADO', 'HOSPITAL_GERAL', 
               'UN_BASICA_SAUDE', 'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO', 'MAMOGRAFOS',
@@ -24,7 +22,7 @@ def get_train_and_test_data(path, method):
               'AP_MUNPCN_T_BANAGUA', 'AP_MUNPCN_T_LIXO', 'AP_MUNPCN_I_ESCOLARIDADE',
               'AP_MUNPCN_I_FREQ_PROP', 'AP_MUNPCN_IDHM', 'AP_MUNPCN_IDHM_E', 
               'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_T_SLUZ',
-              'AP_CODUNI_NOTA',
+             # 'AP_CODUNI_NOTA',
               'EWM_MEAN_DELAY',
               'AP_MUNPCN_IDHM_R', 'MEDICOS', 'ENFERMEIROS', 'DISTANCE_HOSPITAL',
               'AP_MUNPCN_1.1_%R.LÍQUIDA_TOTAL',
@@ -63,8 +61,8 @@ def get_relevant_features(model, X):
     
     #shap.summary_plot(shap_values, X, plot_type="bar")
 
-def predict_sia(path, method):
-    X, X_with_cep, y, y_test, d_train, d_test = get_train_and_test_data(path, method)
+def train_sia(data):
+    X, X_with_cep, y, y_test, d_train, d_test = get_train_and_test_data(data)
     
     param = {
             'max_depth': 3,
