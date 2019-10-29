@@ -7,11 +7,6 @@ Em uma parceria inédita entre BCG GAMMA, Abrale e Observatório de Oncologia, v
 
 https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 
-### Entrega
-
-* Envio dos arquivos até 29/10, às 23h59 (Instruções email)
-
-
 
 ## Installation
 
@@ -50,26 +45,33 @@ $ conda activate <env>
 $ conda install -c conda-forge implicit
 $ pip install -r requirements.txt
 ```
+
+## Documentation
+
+* Features - **Preprocessamento-SIA.ipynb**
+
+* Modelo - **Modelo-Linfoma.ipynb**
+
       
 ## External data
 
-* CEP - tbl_cep_201908_n_log - (base paga):
+* CEP - **tbl_cep_201908_n_log.csv** - (base paga):
   * Latitude
   * Longitude
 
-* Municípios - municipios.csv (https://github.com/kelvins/Municipios-Brasileiros):
+* Municípios - **municipios.csv** (https://github.com/kelvins/Municipios-Brasileiros):
   * Latitude
   * Longitude
   
-* Município Dados Economicos - atlas2013_dadosbrutos_pt.csv (http://www.atlasbrasil.org.br/2013/)
+* Município Dados Economicos - **atlas2013_dadosbrutos_pt.csv** (http://www.atlasbrasil.org.br/2013/)
   
-* Dados de Cnes - cnesnone.csv - (http://dados.gov.br/dataset/cnes)
+* Dados de Cnes - **cnesnone.csv** - (http://dados.gov.br/dataset/cnes)
    * Latitude
    * Longitude
 
-* Investimento em Saúde - orcamento.csv(http://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def)
+* Investimento em Saúde - **orcamento.csv**(http://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def)
 
-* Review hospital (Google Maps) - reviews.csv - feito manualmente
+* Review hospital (Google Maps) - **reviews.csv** - feito manualmente
 
 
 ## Team - Naliel
