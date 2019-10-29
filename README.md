@@ -26,7 +26,7 @@ $ git clone https://github.com/helderrezende/naliel_bcggamma.git
 ```shell
 $ cd naliel/
 $ cd data/
-$ gdown https://drive.google.com/uc?id=1Ud4EbW-ccuhjf0ACaCV5eU3CkVDtj4UC
+$ gdown https://drive.google.com/open?id=1uAcH2CPEgYVQyWLL5IX9GpLrfkmGeVQM
 $ unzip external_data.zip
 ```
 
