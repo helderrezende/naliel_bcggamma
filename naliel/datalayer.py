@@ -160,8 +160,6 @@ def read_csv_sia(path, method):
 
     return data
 
-    return data
-
 
 def _merge_by_year_and_month(data, ext_data, type_csv):
     data['AR_DTIDEN_YEAR_MONTH'] = pd.to_datetime(data['AR_DTIDEN_YEAR_MONTH'])
