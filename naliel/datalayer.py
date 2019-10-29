@@ -30,6 +30,7 @@ def read_csv_estabelecimentos(path):
     
     data = data.replace('-', '0')
     data = data.apply(pd.to_numeric)
+    data = data.reset_index()
 
     return data
 
@@ -69,6 +70,7 @@ def read_csv_rf_rh(path):
     
     data = data.replace('-', '0')
     data = data.apply(pd.to_numeric)
+    data = data.reset_index()
 
     return data
 
@@ -158,19 +160,32 @@ def read_csv_sia(path, method):
 
     return data
 
+    return data
+
+
 def _merge_by_year_and_month(data, ext_data, type_csv):
+    data['AR_DTIDEN_YEAR_MONTH'] = pd.to_datetime(data['AR_DTIDEN_YEAR_MONTH'])
+    
     for ext_file in ext_data.keys():
         if type_csv == 'estabelecimento':
-            ext_df = read_csv_estabelecimentos('{1}/data/{0}'.format(ext_file, script_folder))
+            ext_df = read_csv_estabelecimentos('{1}/data/{0}'.format(ext_file, '..'))
             
         elif type_csv == 'rf_rh':
             ext_df = read_csv_rf_rh('{1}/data/{0}'.format(ext_file, script_folder))
         
         column_name = ext_data[ext_file]
         
-        data[column_name] = data.apply(lambda x: utils._get_value_df(ext_df,
-                                                                     x['AP_UFMUN'],
-                                                                     x['AR_DTIDEN_YEAR_MONTH']), 1)
+        ext_df = ext_df.melt(id_vars=["COD_MUNICIPIO"], 
+                                var_name="AR_DTIDEN_YEAR_MONTH", 
+                                value_name=column_name)
+        
+        ext_df = ext_df.rename(columns={'COD_MUNICIPIO': 'AP_UFMUN'})
+        
+        data = data.merge(ext_df, on=['AP_UFMUN', 'AR_DTIDEN_YEAR_MONTH'], how='left')
+        
+        #data[column_name] = data.apply(lambda x: utils._get_value_df(ext_df,
+        #                                                             x['AP_UFMUN'],
+        #                                                             x['AR_DTIDEN_YEAR_MONTH']), 1)
         
     return data
 

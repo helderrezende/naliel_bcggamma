@@ -31,33 +31,20 @@ def get_orcamento_publico(data, columns_cod, column_year):
     """http://siops-asp.datasus.gov.br/CGI/tabcgi.exe?SIOPS/serhist/municipio/mIndicadores.def
     
     """
-    year_files = ['2014', '2015', '2016', '2017', '2018']
-    orcamento = pd.DataFrame()
-
-    for year in year_files:
-        oracamento_ano = pd.read_csv('{1}/data/orcamento_{0}.csv'.format(year, script_folder), sep=';',
-                            skiprows=3, skipfooter=2, encoding='latin1')
-
-        oracamento_ano['COD_MUNICIPIO'] = oracamento_ano['Munic-BR'].str[:6]
-
-        oracamento_ano[column_year] = year
-
-        orcamento = pd.concat([oracamento_ano, orcamento])
+    orcamento = pd.read_csv('orcamento.csv', sep=';')
+    orcamento = orcamento.rename(columns={'YEAR': column_year})
     
-    orcamento = orcamento.drop(['Munic-BR', 'Freqüência', '2.10\tSUBFUNÇÕES_ADMINISTRATIVAS',
+    remove_columns = ['Munic-BR', 'Freqüência', '2.10\tSUBFUNÇÕES_ADMINISTRATIVAS',
                             '2.20\tSUBFUNÇÕES_VINCULADAS', '2.21\tAtenção_Básica',
                             '2.22_Assis._Hosp._e_Ambulat.', '2.23_Sup._Profilático_Terap.',
                             '2.24_Vigilância_Sanitária', '2.25_Vigilância_Epidemiológica',
                             '2.26_Alimentação_e_Nutrição', '2.30_INFORMAÇÕES_COMPLEMENTARES',
                             'R.Impostos_e_Transf.Const', 'R.Transf.SUS', 'D.Pessoal', 'D.R.Próprios',
                             'D.Total_Saúde'
-                           ], 1)
+                           ]
     
-    orcamento.columns = [x.upper() for x in orcamento.columns]
-    for col in orcamento.columns:
-        orcamento[col] = orcamento[col].astype(str)
-        orcamento[col] = orcamento[col].str.replace(',', '.')
-        orcamento[col] = orcamento[col].apply(pd.to_numeric, errors='coerce')
+    remove_columns = [x.upper() for x in remove_columns]
+    orcamento.drop(remove_columns, 1)
     
     for col in columns_cod:
         orcamento_col = orcamento.copy()
