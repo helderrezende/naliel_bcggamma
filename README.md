@@ -69,7 +69,7 @@ $ pip install -r requirements.txt
 
 * Investimento em Saúde - orcamento.csv(http://siops-asp.datasus.gov.br/CGI/deftohtm.exe?SIOPS/serhist/municipio/mIndicadores.def)
 
-* Review hospital (Google Maps) - feito manualmente
+* Review hospital (Google Maps) - reviews.csv - feito manualmente
 
 
 ## Team - Naliel
