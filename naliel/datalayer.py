@@ -183,10 +183,6 @@ def _merge_by_year_and_month(data, ext_data, type_csv):
         
         data = data.merge(ext_df, on=['AP_UFMUN', 'AR_DTIDEN_YEAR_MONTH'], how='left')
         
-        #data[column_name] = data.apply(lambda x: utils._get_value_df(ext_df,
-        #                                                             x['AP_UFMUN'],
-        #                                                             x['AR_DTIDEN_YEAR_MONTH']), 1)
-        
     return data
 
 def read_sia_model(path, method):

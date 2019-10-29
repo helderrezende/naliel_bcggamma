@@ -7,7 +7,7 @@ def get_municipio_info_atlas(data, columns_cod):
     """Atlas
     
     """
-    atlas = pd.read_csv('{0}/data/atlas2013_dadosbrutos_pt.csv'.format(script_folder), sep=';')
+    atlas = pd.read_csv('{0}/data/external_data/atlas2013_dadosbrutos_pt.csv'.format(script_folder), sep=';')
     
     #atlas = atlas[atlas['ANO'] == 2010].copy()
     relevant_columns = ['Codmun6', 'GINI', 'RDPC', 'T_AGUA', 'T_BANAGUA', 'AGUA_ESGOTO',
@@ -31,7 +31,7 @@ def get_orcamento_publico(data, columns_cod, column_year):
     """http://siops-asp.datasus.gov.br/CGI/tabcgi.exe?SIOPS/serhist/municipio/mIndicadores.def
     
     """
-    orcamento = pd.read_csv('orcamento.csv', sep=';')
+    orcamento = pd.read_csv('{0}/data/external_data/orcamento.csv'.format(script_folder), sep=';')
     orcamento = orcamento.rename(columns={'YEAR': column_year})
     
     remove_columns = ['Munic-BR', 'Freqüência', '2.10\tSUBFUNÇÕES_ADMINISTRATIVAS',
@@ -63,7 +63,7 @@ def get_municipio_info(data, columns_cod):
     """Source: https://github.com/kelvins/Municipios-Brasileiros
 
     """
-    municipio = pd.read_csv('{0}/data/municipios.csv'.format(script_folder), sep=',')
+    municipio = pd.read_csv('{0}/data/external_data/municipios.csv'.format(script_folder), sep=',')
     municipio.columns = [x.upper() for x in municipio.columns]
 
     municipio['CODIGO_IBGE'] = municipio['CODIGO_IBGE'].astype(str)
@@ -84,30 +84,8 @@ def get_municipio_info(data, columns_cod):
 
     return data
 
-
-def get_cep_info_public(data, columns_cep):
-    """Source: http://cep.la/baixar
-
-    """
-    cep_df = pd.read_csv('{0}/data/ceps-latin1.txt'.format(script_folder), encoding='latin1',
-                         sep='\t', names=['CEP', 'MUNICIPIO', 'BAIRRO', 'COMPLEMENTO'])
-
-    cep_df['CEP'] = cep_df['CEP'].astype(str).str.zfill(8)
-    cep_df = cep_df.drop('MUNICIPIO', 1)
-
-    for col in columns_cep:
-        cep_col = cep_df.copy()
-        cep_col.columns = ['{0}_{1}'.format(col, x) for x in cep_col]
-        cep_col[col] = cep_col['{0}_{1}'.format(col, 'CEP')]
-
-        data = data.merge(cep_col, how='left', on=col)
-
-        data = data.drop('{0}_{1}'.format(col, 'CEP'), 1)
-
-    return data
-
 def get_cep_info(data, columns_cep):
-    cep_df = pd.read_csv('{0}/data/tbl_cep_201908_n_log.csv'.format(script_folder))
+    cep_df = pd.read_csv('{0}/data/external_data/tbl_cep_201908_n_log.csv'.format(script_folder))
     
     cep_df.columns = [col.upper() for col in cep_df.columns]
     
@@ -133,7 +111,7 @@ def get_cnes_loc(data, columns_cnes):
     """Source: http://dados.gov.br/dataset/cnes
     
     """
-    cnes_loc = pd.read_csv('{0}/data/cnesnone.csv'.format(script_folder))
+    cnes_loc = pd.read_csv('{0}/data/external_data/cnesnone.csv'.format(script_folder))
 
     cnes_loc.columns = [col.upper() for col in cnes_loc.columns]
     cnes_loc = cnes_loc.rename(columns={'LAT': 'LATITUDE', 'LONG': 'LONGITUDE'})
@@ -151,7 +129,7 @@ def get_cnes_loc(data, columns_cnes):
 
 
 def get_review_google_cnes(data, columns):
-    review = pd.read_csv('{0}/data/reviews.csv'.format(script_folder), sep=';')
+    review = pd.read_csv('{0}/data/external_data/reviews.csv'.format(script_folder), sep=';')
     review['Nota'] = review['Nota'].apply(pd.to_numeric, errors='coerce')
     review.columns = [col.upper() for col in review.columns]
     
