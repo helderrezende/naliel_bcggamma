@@ -62,6 +62,12 @@ def train_sia(data):
             'num_class': 2,
             'scale_pos_weight':1}
     
+    #param = {
+    #        'max_depth': 3,
+    #        'eta': 0.3, 
+    #        'objective': 'binary:logistic',
+    #        'eval_metric': 'auc'}
+    
     print ('training model...')
    
     xg_reg = xgb.train(param, d_train, 100)
