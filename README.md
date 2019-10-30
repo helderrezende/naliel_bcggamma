@@ -84,7 +84,7 @@ $ pip install -r requirements.txt
 * Livia Parente (https://github.com/lvparente)
 
 
-##
+## Licença
 Begin license text.
 
 Copyright © 2019, naliel. Released under the MIT license.
