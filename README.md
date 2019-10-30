@@ -15,6 +15,9 @@ https://www.bcg.com/pt-br/careers/events/gamma-challenge/overview.aspx
 ```shell
 $ git clone https://github.com/helderrezende/naliel_bcggamma.git
 ```
+### Abrale data
+
+Os dados da abrale devem estar dentro da pasta data/
 
 ### Download External data
 
