@@ -22,7 +22,6 @@ def get_train_and_test_data(data):
               'AP_MUNPCN_T_BANAGUA', 'AP_MUNPCN_T_LIXO', 'AP_MUNPCN_I_ESCOLARIDADE',
               'AP_MUNPCN_I_FREQ_PROP', 'AP_MUNPCN_IDHM', 'AP_MUNPCN_IDHM_E', 
               'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_T_SLUZ',
-             # 'AP_CODUNI_NOTA',
               'EWM_MEAN_DELAY',
               'AP_MUNPCN_IDHM_R', 'MEDICOS', 'ENFERMEIROS', 'DISTANCE_HOSPITAL',
               'AP_MUNPCN_1.1_%R.LÍQUIDA_TOTAL',
@@ -52,15 +51,6 @@ def get_train_and_test_data(data):
     
     return X, X_with_cep, y, y_test, d_train, d_test
 
-
-def get_relevant_features(model, X):
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(X)
-    
-    #shap.force_plot(explainer.expected_value, shap_values[0,:], X.iloc[0,:])
-    
-    #shap.summary_plot(shap_values, X, plot_type="bar")
-
 def train_sia(data):
     X, X_with_cep, y, y_test, d_train, d_test = get_train_and_test_data(data)
     
@@ -83,7 +73,3 @@ def train_sia(data):
     print("ROC_AUC_SCORE: %.2f%%" % (accuracy * 100.0))
     
     return xg_reg, X, X_with_cep, y_test, prob_preds, best_preds
-    
-if __name__ == '__main__':
-    data = predict_sia('data/Linfomas Radioterapia SIA-SUS.csv', method='radioterapia')
-    print ('Done.')
