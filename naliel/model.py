@@ -1,4 +1,5 @@
 import xgboost as xgb
+import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_curve, auc, roc_auc_score
 import shap
@@ -46,13 +47,13 @@ def get_train_and_test_data(data):
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
     
-    d_train = xgb.DMatrix(X_train, label=y_train)
-    d_test = xgb.DMatrix(X_test, label=y_test)
-    
-    return X, X_with_cep, y, y_test, d_train, d_test
+    return X, X_with_cep, y, y_train, y_test, X_train, X_test
 
 def train_sia(data):
-    X, X_with_cep, y, y_test, d_train, d_test = get_train_and_test_data(data)
+    X, X_with_cep, y, y_train, y_test, X_train, X_test = get_train_and_test_data(data)
+    
+    d_train = xgb.DMatrix(X_train, label=y_train)
+    d_test = xgb.DMatrix(X_test, label=y_test)
     
     param = {
             'max_depth': 3,
@@ -74,6 +75,29 @@ def train_sia(data):
     
     prob_preds = xg_reg.predict(d_test)
     best_preds = np.asarray([np.argmax(line) for line in prob_preds])
+
+    accuracy = roc_auc_score(y_test, best_preds)
+    print("ROC_AUC_SCORE: %.2f%%" % (accuracy * 100.0))
+    
+    return xg_reg, X, X_with_cep, y_test, prob_preds, best_preds
+
+
+def train_sia_lgb(data):
+    X, X_with_cep, y, y_train, y_test, X_train, X_test = get_train_and_test_data(data)
+    
+    d_train = lgb.Dataset(X_train, label=y_train)
+    
+    params = {}
+    params['boosting_type'] = 'gbdt'
+    params['objective'] = 'binary'
+    params['metric'] = 'binary_logloss'
+    
+    print ('training model...')
+   
+    xg_reg = lgb.train(params, d_train, 100)
+    
+    prob_preds = xg_reg.predict(X_test)
+    best_preds = np.asarray([round(line) for line in prob_preds])
 
     accuracy = roc_auc_score(y_test, best_preds)
     print("ROC_AUC_SCORE: %.2f%%" % (accuracy * 100.0))
