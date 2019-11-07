@@ -22,7 +22,7 @@ def get_train_and_test_data(data):
               'AP_MUNPCN_AGUA_ESGOTO',
               'AP_MUNPCN_T_BANAGUA', 'AP_MUNPCN_T_LIXO', 'AP_MUNPCN_I_ESCOLARIDADE',
               'AP_MUNPCN_I_FREQ_PROP', 'AP_MUNPCN_IDHM', 'AP_MUNPCN_IDHM_E', 
-              'AP_MUNPCN_IDHM_L', 'AP_MUNPCN_T_SLUZ',
+              'AP_MUNPCN_IDHM_L',
               'EWM_MEAN_DELAY',
               'AP_MUNPCN_IDHM_R', 'MEDICOS', 'ENFERMEIROS', 'DISTANCE_HOSPITAL',
               'AP_MUNPCN_1.1_%R.LÍQUIDA_TOTAL',
