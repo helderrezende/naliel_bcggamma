@@ -38,7 +38,8 @@ def get_train_and_test_data(data):
               'AP_MUNPCN_3.1_%TRANSF.SUS/D.TOTAL', 
               'AP_MUNPCN_3.2_%R.PRÓPRIOS_EM_SAÚDE-EC_29', 
               'AP_MUNPCN_R.TRANSF.SUS/HAB', 
-              'AP_MUNPCN_D.R.PRÓPRIOS_EM_SAÚDE/HAB'
+              'AP_MUNPCN_D.R.PRÓPRIOS_EM_SAÚDE/HAB',
+              'AP_MUNPCN_pesoRUR', 'AP_MUNPCN_T_ENV'
              ]]
     
     X = X_with_cep.drop(['AP_CEPPCN', 'AP_MUNPCN_CODIGO_UF', 'AP_MUNPCN_NOME'], 1)

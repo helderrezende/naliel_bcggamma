@@ -241,7 +241,7 @@ def read_sia_model(path, method):
                                                         'HOSPITAL_GERAL',  'UN_BASICA_SAUDE',
                                                         'UN_DIAG_TERAPIA', 'LEITOS_INTERNACAO',
                                                         'MAMOGRAFOS', 'RAIO_X', 'TOMAGRAFOS', 'RESSONANCIA_MAGNETICA',
-                                                        'MEDICOS', 'ENFERMEIROS'], 'AP_MUNPCN_POPULAÇÃO')
+                                                        'MEDICOS', 'ENFERMEIROS', 'AP_MUNPCN_pesoRUR'], 'AP_MUNPCN_POPULAÇÃO')
     
     #data = feature_engineering.creates_new_features_sia(data)
     

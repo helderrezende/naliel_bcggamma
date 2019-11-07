@@ -12,7 +12,8 @@ def get_municipio_info_atlas(data, columns_cod):
     #atlas = atlas[atlas['ANO'] == 2010].copy()
     relevant_columns = ['Codmun6', 'GINI', 'RDPC', 'T_AGUA', 'T_BANAGUA', 'AGUA_ESGOTO',
                         'T_LIXO', 'I_ESCOLARIDADE', 'I_FREQ_PROP',
-                        'IDHM', 'IDHM_E', 'IDHM_L', 'IDHM_R', 'T_SLUZ']
+                        'IDHM', 'IDHM_E', 'IDHM_L', 'IDHM_R', 'T_SLUZ',
+                        'pesoRUR', 'T_ENV']
 
     atlas = atlas[relevant_columns]
     
