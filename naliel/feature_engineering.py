@@ -45,7 +45,7 @@ def label_encoder(data, encode_columns):
 
 def get_ratio_columns(data, columns, numerator):
     for col in columns:
-        data[col] = data[numerator]/data[col]
+        data[col] = data[col]/data[numerator]
         
     return data
 
